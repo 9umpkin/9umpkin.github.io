@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="tky">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/10/17/susctf2023writeup/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="第一次ctf来试试校赛，学习为主。 [简单] PHP Is All You Need看到代码先传值rce一下  通配符*绕过一下限制（后面是后来复现补的图）  感觉全都加粗了 这是一个php捏 看一下源代码  [简单] easy_rce ?create_function&#x3D;;}eval(system(“cat%20&#x2F;etc&#x2F;passwd”));&#x2F;&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SUSCTF2023Writeup">
+<meta property="og:url" content="http://example.com/2023/10/17/SUSCTF2023Writeup/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第一次ctf来试试校赛，学习为主。 [简单] PHP Is All You Need看到代码先传值rce一下  通配符*绕过一下限制（后面是后来复现补的图）  感觉全都加粗了 这是一个php捏 看一下源代码  [简单] easy_rce ?create_function&#x3D;;}eval(system(“cat%20&#x2F;etc&#x2F;passwd”));&#x2F;&#x2F;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231013100529905.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015165145324.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015165250809.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231014091512679.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231014100302237.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231014100925421.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231014104140371.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231014132328915.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231014132607383.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015170044643.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231014152831543.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015165958998.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231014152431511.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231014152418140.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/7eb0496aaa920f50f2018281fa2af90.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231014173258918.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231014173533372.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231014175542003.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015101606333.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015101541771.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015101511557.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015124241509.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015144058562.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015144208245.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015171319538.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015160228863.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015171746649.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015161613957.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015171937057.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015172121437.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015172242581.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015172300605.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015172359456.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015172544265.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015172702108.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015173026685.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015173013148.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015173121055.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015173430952.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015173502106.png">
+<meta property="og:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231015173554893.png">
+<meta property="article:published_time" content="2023-10-17T07:54:35.000Z">
+<meta property="article:modified_time" content="2023-10-26T09:27:30.014Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/SUSCTF2023Writeup/image-20231013100529905.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/jinglingqiu.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/jinglingqiu.ico">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/jinglingqiu.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            SUSCTF2023Writeup -
+        
+        class0ver
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"class0ver","subtitle":{"text":["This is the first place to begin."],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"welcome here.","links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2023/7/20 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/fontawesome/duotone.min.css">
+
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                class0ver
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                
+                  <h1 class="article-title-regular">SUSCTF2023Writeup</h1>
+                
+              </div>
+              
+                     
+            
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/miaowazhongzi.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">tky</span>
+                            
+                                <span class="author-label">Lv4</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-10-17 15:54:35</span>
+        <span class="mobile">2023-10-17 15:54:35</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-10-26 17:27:30</span>
+            <span class="mobile">2023-10-26 17:27:30</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/ctf/">ctf</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.3k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>5 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>第一次ctf来试试校赛，学习为主。</p>
+<h2 id="简单-PHP-Is-All-You-Need"><a href="#简单-PHP-Is-All-You-Need" class="headerlink" title="[简单] PHP Is All You Need"></a>[简单] PHP Is All You Need</h2><p>看到代码先传值rce一下</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231013100529905.png"
+                      alt="image-20231013100529905"
+                ></p>
+<p>通配符*绕过一下限制（后面是后来复现补的图）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015165145324.png"
+                      alt="image-20231015165145324"
+                ></p>
+<p>感觉全都加粗了 这是一个php捏 看一下源代码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015165250809.png"
+                      alt="image-20231015165250809"
+                ></p>
+<h2 id="简单-easy-rce"><a href="#简单-easy-rce" class="headerlink" title="[简单] easy_rce"></a>[简单] easy_rce</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231014091512679.png"
+                      alt="image-20231014091512679"
+                ></p>
+<p>?create_function&#x3D;;}eval(system(“cat%20&#x2F;etc&#x2F;passwd”));&#x2F;&#x2F;</p>
+<p>找到了一个flag文件但是打不开，0700就是没有权限，现在是一个普通用户</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231014100302237.png"
+                      alt="image-20231014100302237"
+                ></p>
+<p>尝试一下suid提权，就是找到一些以普通用户身份拥有root权限的文件，命令都是在网上找的</p>
+<p>这个这个这个mycat感觉有点奇怪呢</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231014100925421.png"
+                      alt="image-20231014100925421"
+                ></p>
+<p>就决定是你啦！让他来运行一下flag</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231014104140371.png"
+                      alt="image-20231014104140371"
+                ></p>
+<h2 id="简单-babypowershell"><a href="#简单-babypowershell" class="headerlink" title="[简单] babypowershell"></a>[简单] babypowershell</h2><p>字符串拼接+ASCII码转接</p>
+<p>再查到了这个，删掉再输出py，就能看到flag了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231014132328915.png"
+                      alt="image-20231014132328915"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231014132607383.png"
+                      alt="image-20231014132607383"
+                ></p>
+<h2 id="简单-百团"><a href="#简单-百团" class="headerlink" title="[简单] 百团"></a>[简单] 百团</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015170044643.png"
+                      alt="image-20231015170044643"
+                ></p>
+<p>先用010editor看看，翻到最下面有奇怪的东西，看起来像是usehalfflag.txt 的压缩包</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231014152831543.png"
+                      alt="image-20231014152831543"
+                ></p>
+<p>改成zip解压一下发现需要密码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015165958998.png"
+                      alt="image-20231015165958998"
+                ></p>
+<p>刚刚图上的二维码还没扫，扫出来是一串编码，转成中文是奇怪的东西</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231014152431511.png"
+                      alt="image-20231014152431511"
+                ></p>
+<p>查了一下是当铺密码，<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/zz_Caleb/article/details/86525978%E8%BF%99%E4%B8%AA%E6%98%AF%E5%BE%88%E7%AE%80%E5%8D%95%E7%9A%84%E5%AF%86%E7%A0%81%E6%95%99%E7%A8%8B%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%B8%8D%E9%9C%80%E8%A6%81%E5%B7%A5%E5%85%B7%E7%9B%B4%E6%8E%A5%E6%89%8B%E5%8A%A8%E8%A7%A3%E5%AF%86%E5%BE%88%E5%BF%AB%E7%9A%84%E3%80%82%E6%8E%A5%E5%87%BA%E6%9D%A5%E5%B0%B1%E6%98%AF%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%B8%80%E4%B8%B2%E6%95%B0%E5%AD%97%E3%80%82%E8%BF%99%E4%B8%AA%E6%95%B0%E5%AD%97%E7%9C%8B%E8%B5%B7%E6%9D%A5%E5%BE%88%E5%83%8FASCII%EF%BC%8C%E5%85%88%E6%8E%92%E9%99%A4Bin%EF%BC%8C%E6%8A%8ADec%E5%92%8CHex%E9%83%BD%E8%AF%95%E8%AF%95%EF%BC%8C%E5%B0%B1%E8%83%BD%E5%BE%97%E5%88%B0%E4%B8%80%E4%B8%B2%E8%B2%8C%E4%BC%BCflag%E7%9A%84%E5%AD%97%E7%AC%A6%EF%BC%8C%E4%BD%86%E6%98%AF%E7%94%A8susctf%7B%7D%E5%8C%85%E8%A3%B9%E6%8F%90%E4%BA%A4%E9%94%99%E8%AF%AF%E3%80%82%E6%83%B3%E8%B5%B7%E6%9D%A5%E5%88%9A%E6%89%8D%E7%9A%84%E6%96%87%E4%BB%B6%E8%BF%98%E6%B2%A1%E5%BC%80%EF%BC%8C%E8%BF%99%E4%B8%AA%E5%BA%94%E8%AF%A5%E6%98%AF%E5%8E%8B%E7%BC%A9%E5%AF%86%E7%A0%81%E3%80%82" >https://blog.csdn.net/zz_Caleb/article/details/86525978这个是很简单的密码教程，可以不需要工具直接手动解密很快的。接出来就是下面的一串数字。这个数字看起来很像ASCII，先排除Bin，把Dec和Hex都试试，就能得到一串貌似flag的字符，但是用susctf{}包裹提交错误。想起来刚才的文件还没开，这个应该是压缩密码。 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231014152418140.png"
+                      alt="image-20231014152418140"
+                ></p>
+<p>拿过去把压缩包打开，usehalfflag.txt里面是这个，才发现名字是usehalfflag，half！！！！</p>
+<p>应该真正的flag是需要把上面的字符串和txt中的字符串拼在一起再包上susctf{}。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/7eb0496aaa920f50f2018281fa2af90.png"
+                      alt="7eb0496aaa920f50f2018281fa2af90"
+                ></p>
+<h2 id="简单-sleep-away"><a href="#简单-sleep-away" class="headerlink" title="[简单] sleep away"></a>[简单] sleep away</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231014173258918.png"
+                      alt="image-20231014173258918"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231014173533372.png"
+                      alt="image-20231014173533372"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231014175542003.png"
+                      alt="image-20231014175542003"
+                ></p>
+<p>?step1&#x3D;0e215962017&amp;backdoor&#x3D;o:8:”safeeval”:2:{s:7:”evalstr”;s:4:”eval”;s:9:”args_down”;s:12:”system(“ls”)”;}</p>
+<p>?step1&#x3D;0e215962017&amp;backdoor&#x3D;o:6:”helper”:4:{s:7:”youneed”;s:1:”a”;s:7:”truearg”;s:1:”b”;s:7:”thinkit”;s:1:”c”;s:7:”ture”;s:1:”d”;}</p>
+<p><strong>&#x3D;&#x3D;好这个没做出来886TAT&#x3D;&#x3D;</strong></p>
+<h2 id="简单-转瞬即逝"><a href="#简单-转瞬即逝" class="headerlink" title="[简单] 转瞬即逝"></a>[简单] 转瞬即逝</h2><p>源码中有提示，就是需要构造一个输入让他和运行时间戳相差5s。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015101606333.png"
+                      alt="image-20231015101606333"
+                ></p>
+<p>直接用这个爆破一下。</p>
+<p>这里看了好久，爆破出来除了有login success啥也没有啊，也没有回显。</p>
+<p>不过返回了token</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015101541771.png"
+                      alt="image-20231015101541771"
+                ></p>
+<p>拿去浅解密一下呢，也不知道是什么编码，反正不是base64，就直接用cyberchef硬解，发现是JWT，总之就over了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015101511557.png"
+                      alt="image-20231015101511557"
+                ></p>
+<h2 id="简单-SUSTV"><a href="#简单-SUSTV" class="headerlink" title="[简单] SUSTV"></a>[简单] SUSTV</h2><p>先拉到最后听到了外星音</p>
+<p>然后看了下波形</p>
+<p>去网上搜了一下SSTV的声音，确定方向</p>
+<p>下载了MMSSTV，放给他听就出来啦</p>
+<p>然后扫码就ok了。这个题没什么弯弯绕绕，<strong>不像有的题：）</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015124241509.png"
+                      alt="image-20231015124241509"
+                ></p>
+<h2 id="简单-维吉尼亚"><a href="#简单-维吉尼亚" class="headerlink" title="[简单] 维吉尼亚"></a>[简单] 维吉尼亚</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015144058562.png"
+                      alt="image-20231015144058562"
+                ></p>
+<p><strong>susctf{}格式，字母在a-f之间</strong></p>
+<p><strong>key是10位</strong></p>
+<p>密文是ieplnp{bhtnr6m3-04bm-41w3-lg78-c040377ys146}</p>
+<p>可以根据性质推算出密钥key：qkxjukbctn再解密一下（一开始想爆破，但是感觉根本不用，直接手算好像更方便一点</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015144208245.png"
+                      alt="image-20231015144208245"
+                ></p>
+<h2 id="简单-queencard"><a href="#简单-queencard" class="headerlink" title="[简单] queencard"></a>[简单] queencard</h2><p>这个题一开始是放进audacity里面看了好久，一秒一秒地也没找出什么问题来，波形和频谱都没啥问题，歌挺好听的。</p>
+<p>然后就用010Editor打开看看吧，这里还去查了一下题目里说的private和Jeremiah Denton。一开始以为是摩斯密码，结果方向完全错了。private是private bit的意思，从来没见过这个玩意儿，不知道什么是privatebit。</p>
+<p>去学习了一下。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015171319538.png"
+                      alt="image-20231015171319538"
+                ></p>
+<p>有方向之后就在找相关的字段，找到private bit，准备开始写脚本</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015160228863.png"
+                      alt="image-20231015160228863"
+                ></p>
+<p>脚本这里，有一个小细节，mf[0]是不能包含进去的，因为他根本不是一个正常的节，他只有208，所以就从mf[1]开始遍历，找了现成的脚本改了数据。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015171746649.png"
+                      alt="image-20231015171746649"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015161613957.png"
+                      alt="image-20231015161613957"
+                ></p>
+<h2 id="简单-pollute-me！"><a href="#简单-pollute-me！" class="headerlink" title="[简单] pollute me！"></a>[简单] pollute me！</h2><p>点进实例发现一个输入</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015171937057.png"
+                      alt="image-20231015171937057"
+                ></p>
+<p>看一下源代码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015172121437.png"
+                      alt="image-20231015172121437"
+                ></p>
+<p>发现有好多接口 &#x2F;login &#x2F;register &#x2F;updateinfo &#x2F;eval</p>
+<p>这里可以简单推算出是需要结合nodejs原型链污染和命令注入来做的</p>
+<p>源码中提示到了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015172242581.png"
+                      alt="image-20231015172242581"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015172300605.png"
+                      alt="image-20231015172300605"
+                ></p>
+<p>merge只在&#x2F;updateinfo里面使用到了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015172359456.png"
+                      alt="image-20231015172359456"
+                ></p>
+<p>&#x2F;eval中创建了一个新对象test，目前看来我们就是需要污染这个对象。那我们首先需要创建一个用户，再登陆用户，在该用户进行信息修改的时候，抓包修改post参数，把__proto__参数发送到后台进行污染，再访问&#x2F;eval页面。</p>
+<p>先到达updateinfo页面修改信息</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015172544265.png"
+                      alt="image-20231015172544265"
+                ></p>
+<p>提交表单发现无论如何修改不成功</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015172702108.png"
+                      alt="image-20231015172702108"
+                ></p>
+<p>重新看一下源码，发现这里会先拿传过来的username和数据库中的username比较，存在才会进行后续操作，否则全部过滤。但是这个表单只传了name值根本就没有username，当然过不去。</p>
+<p>重新修改post参数，把proto也加上。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015173026685.png"
+                      alt="image-20231015173026685"
+                ></p>
+<p>然后再访问&#x2F;eval 就成功了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015173013148.png"
+                      alt="image-20231015173013148"
+                ></p>
+<h2 id="简单-why-not-play-a-game"><a href="#简单-why-not-play-a-game" class="headerlink" title="[简单] why not play a game"></a>[简单] why not play a game</h2><p>点进来是这个</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015173121055.png"
+                      alt="image-20231015173121055"
+                ></p>
+<p>发现源码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015173430952.png"
+                      alt="image-20231015173430952"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015173502106.png"
+                      alt="image-20231015173502106"
+                ></p>
+<h2 id="简单-算数！"><a href="#简单-算数！" class="headerlink" title="[简单] 算数！"></a>[简单] 算数！</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/SUSCTF2023Writeup/image-20231015173554893.png"
+                      alt="image-20231015173554893"
+                ></p>
+<p>一个算术编码的题，纯手算的，很快 <strong>0.438875求5位字符</strong></p>
+<table>
+<thead>
+<tr>
+<th>区间</th>
+<th>占比</th>
+<th>字符</th>
+<th>轮次</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0-1</td>
+<td>0.5</td>
+<td>a</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0-0.5</td>
+<td>0.1</td>
+<td>l</td>
+<td>2</td>
+</tr>
+<tr>
+<td>0.4-0.45</td>
+<td>0.3</td>
+<td>o</td>
+<td>3</td>
+</tr>
+<tr>
+<td>0.425-0.44</td>
+<td>0.1</td>
+<td>h</td>
+<td>4</td>
+</tr>
+<tr>
+<td>0.4385-0.44</td>
+<td>0.5</td>
+<td>a</td>
+<td>5</td>
+</tr>
+</tbody></table>
+<p>最后得到susctf{aloha}</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> SUSCTF2023Writeup</li>
+        <li><strong>Author:</strong> tky</li>
+        <li><strong>Created at:</strong> 2023-10-17 15:54:35</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-10-26 17:27:30
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://www.class0ver.top/2023/10/17/SUSCTF2023Writeup/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/ctf/">#ctf</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/10/26/hello-world/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Hello World</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/10/09/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">基于Maven和Tomcat的java项目搭建</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://example.example.com',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">SUSCTF2023Writeup</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95-PHP-Is-All-You-Need"><span class="nav-text">[简单] PHP Is All You Need</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95-easy-rce"><span class="nav-text">[简单] easy_rce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95-babypowershell"><span class="nav-text">[简单] babypowershell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95-%E7%99%BE%E5%9B%A2"><span class="nav-text">[简单] 百团</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95-sleep-away"><span class="nav-text">[简单] sleep away</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95-%E8%BD%AC%E7%9E%AC%E5%8D%B3%E9%80%9D"><span class="nav-text">[简单] 转瞬即逝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95-SUSTV"><span class="nav-text">[简单] SUSTV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95-%E7%BB%B4%E5%90%89%E5%B0%BC%E4%BA%9A"><span class="nav-text">[简单] 维吉尼亚</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95-queencard"><span class="nav-text">[简单] queencard</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95-pollute-me%EF%BC%81"><span class="nav-text">[简单] pollute me！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95-why-not-play-a-game"><span class="nav-text">[简单] why not play a game</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95-%E7%AE%97%E6%95%B0%EF%BC%81"><span class="nav-text">[简单] 算数！</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">tky</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.2</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="tky">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/10/09/基于maven和tomcat的java项目搭建/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="本机上前几年学习的时候已经下载好了Maven和Tomcat，最近打算继续学习java方向的开发和安全，所以打算再捡起来啦。 注意三者版本冲突 1. 创建maven项目+完善目录结构使用Webapp模板  设置一下maven的目录、配置文件和本地仓库  等待IDEA响应完成后可以发现，左边侧栏并没有我们需要的目录结构，需要手动创建。  先设置一步maven下载source文件  然后解决目录问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Maven和Tomcat的java项目搭建">
+<meta property="og:url" content="http://example.com/2023/10/09/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本机上前几年学习的时候已经下载好了Maven和Tomcat，最近打算继续学习java方向的开发和安全，所以打算再捡起来啦。 注意三者版本冲突 1. 创建maven项目+完善目录结构使用Webapp模板  设置一下maven的目录、配置文件和本地仓库  等待IDEA响应完成后可以发现，左边侧栏并没有我们需要的目录结构，需要手动创建。  先设置一步maven下载source文件  然后解决目录问题。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009142258054-1696841307416-1.png">
+<meta property="og:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009142553557-1696841307417-2.png">
+<meta property="og:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009142845522-1696841307417-3.png">
+<meta property="og:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009150446150-1696841307417-4.png">
+<meta property="og:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009143405071-1696841307417-5.png">
+<meta property="og:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231029144600454.png">
+<meta property="og:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231029144629156.png">
+<meta property="og:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009143925676-1696841307417-8.png">
+<meta property="og:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009144056194-1696841307417-9.png">
+<meta property="og:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009144415589-1696841307417-10.png">
+<meta property="og:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009144437602-1696841307417-11.png">
+<meta property="og:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009144626425-1696841307417-12.png">
+<meta property="og:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009145101940-1696841307417-13.png">
+<meta property="og:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009145516308-1696841307417-14.png">
+<meta property="og:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009150613666-1696841307417-15.png">
+<meta property="article:published_time" content="2023-10-09T07:18:01.000Z">
+<meta property="article:modified_time" content="2023-10-29T06:46:33.001Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="javaWeb">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009142258054-1696841307416-1.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/jinglingqiu.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/jinglingqiu.ico">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/jinglingqiu.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            基于Maven和Tomcat的java项目搭建 -
+        
+        class0ver
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"class0ver","subtitle":{"text":["This is the first place to begin."],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"welcome here.","links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2023/7/20 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/fontawesome/duotone.min.css">
+
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                class0ver
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                
+                  <h1 class="article-title-regular">基于Maven和Tomcat的java项目搭建</h1>
+                
+              </div>
+              
+                     
+            
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/miaowazhongzi.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">tky</span>
+                            
+                                <span class="author-label">Lv4</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-10-09 15:18:01</span>
+        <span class="mobile">2023-10-09 15:18:01</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-10-29 14:46:33</span>
+            <span class="mobile">2023-10-29 14:46:33</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/javaWeb/">javaWeb</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>475 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>1 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>本机上前几年学习的时候已经下载好了Maven和Tomcat，最近打算继续学习java方向的开发和安全，所以打算再捡起来啦。</p>
+<p>注意三者版本冲突</p>
+<h2 id="1-创建maven项目-完善目录结构"><a href="#1-创建maven项目-完善目录结构" class="headerlink" title="1. 创建maven项目+完善目录结构"></a>1. 创建maven项目+完善目录结构</h2><p>使用Webapp模板</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009142258054-1696841307416-1.png"
+                      alt="image-20231009142258054"
+                ></p>
+<p>设置一下maven的目录、配置文件和本地仓库</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009142553557-1696841307417-2.png"
+                      alt="image-20231009142553557"
+                ></p>
+<p>等待IDEA响应完成后可以发现，左边侧栏并没有我们需要的目录结构，需要手动创建。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009142845522-1696841307417-3.png"
+                      alt="image-20231009142845522"
+                ></p>
+<p>先设置一步maven下载source文件</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009150446150-1696841307417-4.png"
+                      alt="image-20231009150446150"
+                ></p>
+<p>然后解决目录问题。</p>
+<p>首先创建源代码目录java，这里我的IDEA自动识别到了我的意图，直接帮我把java目录设置成了Source。</p>
+<p>这一步也可以手动设置。右键目录 –&gt;Mark Directory as –&gt; Sources Root</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009143405071-1696841307417-5.png"
+                      alt="image-20231009143405071"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231029144600454.png"
+                      alt="image-20231029144600454"
+                ></p>
+<p>按照上述方法把test目录也补上，给每一个目录都Mark上该有的意义后如下所示</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231029144629156.png"
+                      alt="image-20231029144629156"
+                ></p>
+<h2 id="2-配置tomcat服务器"><a href="#2-配置tomcat服务器" class="headerlink" title="2. 配置tomcat服务器"></a>2. 配置tomcat服务器</h2><p>点击这个按钮进行服务器配置</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009143925676-1696841307417-8.png"
+                      alt="image-20231009143925676"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009144056194-1696841307417-9.png"
+                      alt="image-20231009144056194"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009144415589-1696841307417-10.png"
+                      alt="image-20231009144415589"
+                ></p>
+<p>点击FIX之后会跳转到如下页面，点击右侧的加号，选择Artifact…，然后会弹出一个artifacts列表，这里我们选择Exploded的一项。</p>
+<p><strong>带Exploded的就是不进行压缩的，不带Exploded的会产出压缩包。在开发的过程中建议使用Exploded模式，这样可以立刻查看文件中的变化</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009144437602-1696841307417-11.png"
+                      alt="image-20231009144437602"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009144626425-1696841307417-12.png"
+                      alt="image-20231009144626425"
+                ></p>
+<p>虚拟路径映射配置</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009145101940-1696841307417-13.png"
+                      alt="image-20231009145101940"
+                ></p>
+<p>这样我们的服务器就配置好啦</p>
+<h2 id="3-认识maven"><a href="#3-认识maven" class="headerlink" title="3. 认识maven"></a>3. 认识maven</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009145516308-1696841307417-14.png"
+                      alt="image-20231009145516308"
+                ></p>
+<p>Maven的一大特点是，当你在pom.xml文件中编写了你所需要的依赖后，<strong>它不仅会下载本依赖，还会下载依赖的依赖。</strong></p>
+<p>图上右侧可以对依赖进行操作，比如常用的clean之后再install可以刷新依赖文件，再比如package是将所有依赖全部打包，等等。</p>
+<p>还可以点击此按钮查看依赖之间的依赖结构。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E5%9F%BA%E4%BA%8EMaven%E5%92%8CTomcat%E7%9A%84java%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/image-20231009150613666-1696841307417-15.png"
+                      alt="image-20231009150613666"
+                ></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 基于Maven和Tomcat的java项目搭建</li>
+        <li><strong>Author:</strong> tky</li>
+        <li><strong>Created at:</strong> 2023-10-09 15:18:01</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-10-29 14:46:33
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://www.class0ver.top/2023/10/09/基于Maven和Tomcat的java项目搭建/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/javaWeb/">#javaWeb</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/10/17/SUSCTF2023Writeup/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">SUSCTF2023Writeup</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/07/25/ubuntu20-04-vue%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">ubuntu20.04 vue环境搭建</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://example.example.com',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">基于Maven和Tomcat的java项目搭建</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE-%E5%AE%8C%E5%96%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-text">1. 创建maven项目+完善目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AEtomcat%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">2. 配置tomcat服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%AE%A4%E8%AF%86maven"><span class="nav-text">3. 认识maven</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">tky</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.2</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

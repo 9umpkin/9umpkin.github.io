@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="tky">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/11/28/fesa-automatic-federated-swarm-attestation-on-dynamic-large-scale-iot-devices阅读笔记/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="一、Introduction写作思路Introduction这一部分是最考验写作思路和写作水平的一个章节，它的关注点在于如何写出本文方案的意义和必要性，展现出与其他方案相比的优越性。因此这里总结一下这一小节的写作思路，便于学习。  描述大环境现状（IOT给人们的生活带来便利…结合了多种技术…） 提出问题（Unfortunately，资源有限，还有安全问题） 阐述已经存在的初步解决方案以及相关信息（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FeSA: Automatic Federated Swarm Attestation on Dynamic Large-Scale IoT Devices阅读笔记">
+<meta property="og:url" content="http://example.com/2023/11/28/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、Introduction写作思路Introduction这一部分是最考验写作思路和写作水平的一个章节，它的关注点在于如何写出本文方案的意义和必要性，展现出与其他方案相比的优越性。因此这里总结一下这一小节的写作思路，便于学习。  描述大环境现状（IOT给人们的生活带来便利…结合了多种技术…） 提出问题（Unfortunately，资源有限，还有安全问题） 阐述已经存在的初步解决方案以及相关信息（">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231128152321702.png">
+<meta property="og:image" content="http://example.com/images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203150055296.png">
+<meta property="og:image" content="http://example.com/images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231128152344960.png">
+<meta property="og:image" content="http://example.com/images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203151058515.png">
+<meta property="og:image" content="http://example.com/images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203151516553.png">
+<meta property="og:image" content="http://example.com/images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203151935228.png">
+<meta property="og:image" content="http://example.com/images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203152101106.png">
+<meta property="og:image" content="http://example.com/images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203152126863.png">
+<meta property="og:image" content="http://example.com/images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203152132713.png">
+<meta property="og:image" content="http://example.com/images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203152136951.png">
+<meta property="og:image" content="http://example.com/images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231128153027088.png">
+<meta property="article:published_time" content="2023-11-28T07:17:27.000Z">
+<meta property="article:modified_time" content="2023-12-09T11:24:41.344Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="thesis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231128152321702.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/jinglingqiu.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/jinglingqiu.ico">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/jinglingqiu.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            FeSA: Automatic Federated Swarm Attestation on Dynamic Large-Scale IoT Devices阅读笔记 -
+        
+        class0ver
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"class0ver","subtitle":{"text":["This is the first place to begin."],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"welcome here.","links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2023/7/20 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/fontawesome/duotone.min.css">
+
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                class0ver
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                
+                  
+                  
+                    <img src="/../images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231128153119301.png" alt="FeSA: Automatic Federated Swarm Attestation on Dynamic Large-Scale IoT Devices阅读笔记" />
+                  
+                  <h1 class="article-title-cover">FeSA: Automatic Federated Swarm Attestation on Dynamic Large-Scale IoT Devices阅读笔记</h1>
+                
+              </div>
+              
+                     
+            
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/miaowazhongzi.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">tky</span>
+                            
+                                <span class="author-label">Lv4</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-11-28 15:17:27</span>
+        <span class="mobile">2023-11-28 15:17:27</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-12-09 19:24:41</span>
+            <span class="mobile">2023-12-09 19:24:41</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/thesis/">thesis</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.9k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>13 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="一、Introduction写作思路"><a href="#一、Introduction写作思路" class="headerlink" title="一、Introduction写作思路"></a>一、Introduction写作思路</h2><p>Introduction这一部分是最考验写作思路和写作水平的一个章节，它的关注点在于如何写出本文方案的意义和必要性，展现出与其他方案相比的优越性。因此这里总结一下这一小节的写作思路，便于学习。</p>
+<ol>
+<li>描述大环境现状（IOT给人们的生活带来便利…结合了多种技术…）</li>
+<li>提出问题（Unfortunately，资源有限，还有安全问题）</li>
+<li>阐述已经存在的初步解决方案以及相关信息（RA–&gt;单一认证）</li>
+<li>提出现存解决方案的弊端（“with the growing scale of IoT”，又出现了这个解决方案无法解决的新问题；这个解决方案仅适用于部分情况；本文这里提到的是设备群体动态性导致的单一认证低效的问题）</li>
+<li>针对上面提出的问题，提出新的解决方案（swarm attestation）</li>
+<li>swarm attestation也有一些Motivation &amp; Challenges<ol>
+<li>一系列安全问题</li>
+<li>群体认证要求在每一轮认证中都执行所有的设备认证，但是低安全敏感的设备并不需要执行这么多次，这个部分就造成了资源浪费（previous scheme是均匀地将认证应用于所有的设备上），说不定还会因为这种资源浪费而带来新的危害。</li>
+</ol>
+</li>
+<li>引出本篇文章的<strong>核心算法</strong>（Automatic Swarm Attestation protocol）<ol>
+<li>为每个设备自定义认证期限</li>
+<li>通过verify收集到的设备地动、静态特征作为神经网络模型地训练数据，以此来识别可能受到损害地设备。</li>
+<li>verify会选择一系列可以的设备进行群体认证</li>
+</ol>
+</li>
+<li>提出上述算法面临的问题（数据集不够+challenge过长）</li>
+<li>为了解决这两个挑战，我们提出了FeSA<ol>
+<li>利用联邦学习提升模型准确性并保护数据隐私。</li>
+<li>在特定的RA中摒弃了challenge-response机制，改用一个新的challenge-query机制，并介绍了一种物理固定边缘代理层，用以减少设备端开销（减少到constant）</li>
+</ol>
+</li>
+<li>简要介绍evaluation的结果——多说好的，少说坏的</li>
+<li>贡献总结（本文提出的新方法&#x2F;新工具&#x2F;新的机制+其声称实现的效果【可能不止一个】；本文所做的实验验证【实际环境评估+仿真】）</li>
+<li>文章路线（介绍本文各章节在讲什么内容）</li>
+</ol>
+<h2 id="二、文章总结"><a href="#二、文章总结" class="headerlink" title="二、文章总结"></a>二、文章总结</h2><h3 id="1、文章背景"><a href="#1、文章背景" class="headerlink" title="1、文章背景"></a>1、文章背景</h3><p><strong>远程认证（RA）</strong>被提议作为一种安全措施来检测IoT集群中受感染的设备，而不会给它们带来太多的负担。典型的 RA 方法允许受信任方（验证者）通过质询响应机制检查可能受损的设备（证明者）的完整性。由于其灵活性、安全性、可扩展性和低开销，RA已成为一种经济合理的安全策略选择。</p>
+<p><strong>群体认证（SA）</strong>作为远程认证（RA）的一个重要分支，使得可信方（验证者）能够通过质询-响应机制（Challenge-Response）同时验证大型网络（群体）中多个设备（证明者）的安全状态。</p>
+<h3 id="2、当前面临的问题"><a href="#2、当前面临的问题" class="headerlink" title="2、当前面临的问题"></a>2、当前面临的问题</h3><p>（1）冗余认证。每一轮群体认证都需要认证所有的设备。</p>
+<p>（2）效率低下。时间和能量消耗极高，影响了系统的实时性和能耗效率。</p>
+<p>（3）数据隐私泄露风险。认证过程中涉及到的数据可能面临泄露风险，对用户的隐私造成威胁。</p>
+<h3 id="3、针对上述问题提出的解决方案"><a href="#3、针对上述问题提出的解决方案" class="headerlink" title="3、针对上述问题提出的解决方案"></a>3、针对上述问题提出的解决方案</h3><p><strong>（1）自动化群体认证协议</strong></p>
+<p>根据设备的特性和需求，个性化地设置认证周期，减少了设备的冗余认证。</p>
+<p><strong>（2）Challenge-Query机制</strong></p>
+<p>可以优化每个设备地认证时间和能量消耗，让认证过程更加高效。</p>
+<p><strong>（3）联邦学习的认证方案</strong></p>
+<p>通过在本地对模型进行训练和更新，确保了数据隐私的保护，减少了数据泄露的风险。</p>
+<p>大多数现存的群体认证方法都只适用于静态网络。广播是一种常见的对于高度动态网络的群体认证方法，然而这种方法会造成难以忍受的开销。</p>
+<p>因此FeSA的提出很有必要。</p>
+<h3 id="4、-FeSA声称效果"><a href="#4、-FeSA声称效果" class="headerlink" title="4、 FeSA声称效果"></a>4、 FeSA声称效果</h3><p>（1）保护数据隐私</p>
+<p>（2）排除冗余证明伦次</p>
+<p>（3）将单个设备的开销降低到一个常数</p>
+<h3 id="5、-文章贡献总结"><a href="#5、-文章贡献总结" class="headerlink" title="5、 文章贡献总结"></a>5、 文章贡献总结</h3><p>（1）设计了一种自动化群体认证协议，以减少对群体设备的冗余认证。并首次提出了基于联邦学习的认证方法，这种方法能够在保证数据私密性的情况下提升模型的准确性。</p>
+<p>（2）提出了一种新的challenge-query机制来优化每一个设备在认证过程中的时间和能量。它还可以适应高度动态的网络并抵抗验证者模拟DoS攻击。</p>
+<p>（3）我们在 21 天内构建了一个包含 12 种物联网设备的真实实验环境，以确认 FeSA 确实可以减少冗余证明。</p>
+<p>（4）我们模拟了多达 1,000,000 台设备的大规模集群，以验证 FeSA 的效率、可扩展性和动态性。</p>
+<h3 id="6、FeSA方案基本框架"><a href="#6、FeSA方案基本框架" class="headerlink" title="6、FeSA方案基本框架"></a>6、FeSA方案基本框架</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231128152321702.png"
+                      alt="image-20231128152321702"
+                ></p>
+<p>could layer：由一系列云服务器组成，是联邦学习的重要终端。它训练随机初始化的模型并分发给所有的verifiers，同时负责每轮认证模型的聚合与更新。</p>
+<p>verifier layer： 由认证服务器组成，由设备群体所有者直接维护。它从Edge层收集并存储IoT设备的数据，与Cloud层协同完成认证模型的聚合。同时，在认证过程中，配备最终模型的Verifier将根据收集到的数据，向选择性能异常的设备发出认证Challenge。</p>
+<p>edge layer：该层由多组边缘代理设备组成，边缘代理是计算能力和存储容量比IoT集群设备更大的设备，它们广泛分布在整个设备网络中，使得每一个IoT设备都至少可以与一个边缘代理相通信。这些边缘代理的功能是：<strong>从IoT设备处收集数据，存储由Verifier层发来的认证Challenge，接受由IoT Device层发来的Query，并将认证响应转发给Verifier。</strong></p>
+<p>IoT设备层：多个群由具有不同计算和存储能力的异构物联网设备组成。它们可能会受到攻击者的危害。物联网设备通过从Edge层的边缘代理处查询认证Challenge来启动认证，执行认证过程，并发送响应到边缘代理。此外，这些设备可以在集群中随机移动。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203150055296.png"
+                      alt="image-20231203150055296"
+                ></p>
+<h3 id="7、FeSA方案详解"><a href="#7、FeSA方案详解" class="headerlink" title="7、FeSA方案详解"></a>7、FeSA方案详解</h3><h4 id="参数初始化"><a href="#参数初始化" class="headerlink" title="参数初始化"></a>参数初始化</h4><p>D –&gt; device</p>
+<p>id;</p>
+<p>k –&gt; session key</p>
+<p>h –&gt; trusted software configuration</p>
+<p>T –&gt; 上一次认证的时长</p>
+<p>DC –&gt; device category</p>
+<p>S –&gt; security level</p>
+<p>P –&gt; Privacy level</p>
+<p>HW –&gt; hardware level</p>
+<p>MT –&gt; 预设的最大认证周期</p>
+<p>Δt –&gt; 两轮认证的最小间隔</p>
+<h4 id="分布式模型训练"><a href="#分布式模型训练" class="headerlink" title="分布式模型训练"></a>分布式模型训练</h4><h4 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h4><p><strong>Time</strong></p>
+<p><strong>Device state (DS)：用短期的统计量来展示DS，统计量又分为离散型和连续型，需要不同的数据处理方法。</strong></p>
+<p><strong>Energy (Eng)：通过智能电表进行能源消耗的测量，受损设备通常会又异常的能量开销。使用短期的统计量来表示能源开销。</strong></p>
+<p><strong>Traffic (Trf)：网络流量，采用短期检测的数据量，比如接受和发送的数据包数量、数据包大小的统计值、数据包类型的数量等。</strong></p>
+<h4 id="自动化群体认证"><a href="#自动化群体认证" class="headerlink" title="自动化群体认证"></a>自动化群体认证</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231128152344960.png"
+                      alt="image-20231128152344960"
+                ></p>
+<p><strong>1.准备阶段</strong></p>
+<p>​    Edge层的边缘代理收集相关集群设备的信息并发送给Verifier层的验证者。</p>
+<p><strong>2.认证选择</strong></p>
+<p>​    协议规定一个最大认证期限ΔT，每一个设备中也规定有一个安全时钟。</p>
+<p>​    经由神经网络模型选择的危险设备和超过其最大证明期限内尚未经过认证的设备都将成为下一轮认证的证明者。</p>
+<p><strong>3.发起认证Challenge</strong></p>
+<p>​    除了选择出的证明者以外，Challenge中还需要包含一个由验证者选择的随机数nonce。</p>
+<p><strong>4.存储信息</strong></p>
+<p>​    Verifier发起认证Challenge后，认证并不立即开始，而是将Challenge信息存储在Edge层的边缘代理中。</p>
+<p>​    每个设备内的安全只读时钟在最小证明间隔 Δt后向最近的边缘代理使用自己的id发起认证Query。</p>
+<p><strong>5.边缘代理响应</strong></p>
+<p>​    一旦边缘代理收到认证Query，就拿出其中的id进行检查，如果能找到一个Challenge的list中包含了此id，则把对应的随机数nonce发送给该设备。</p>
+<p><strong>6.设备认证</strong></p>
+<p>​    设备使用会话密钥 k 计算内存上的校验和 r 及其基于哈希的消息认证码 (HMAC) r’，并把二者打包再次发送给边缘代理。</p>
+<p><strong>7.边缘代理转发</strong></p>
+<p>​    边缘代理收到来自设备的认证信息后，就即刻转发到Verifier层。</p>
+<p><strong>8.验证阶段</strong></p>
+<p>​    验证者接收到来自边缘代理转发的认证信息，就开始验证。</p>
+<p>​    将其中的r（使用会话密钥 k 计算内存上的校验和）与预存的可信软件配置h进行比较，来验证HMAC和设备软件的完整性。</p>
+<p>​    如果验证成功，则生成AR结果。</p>
+<p>​    否则，验证者则对认证失败的设备进行操作。</p>
+<h3 id="8、-评估"><a href="#8、-评估" class="headerlink" title="8、 评估"></a>8、 评估</h3><p>主要围绕以下两个问题进行评估</p>
+<blockquote>
+<p>联邦学习是否适用于认证问题？</p>
+</blockquote>
+<blockquote>
+<p>FeSA是否适用于大规模的设备集群中？</p>
+</blockquote>
+<h4 id="联邦学习的适用性评估"><a href="#联邦学习的适用性评估" class="headerlink" title="联邦学习的适用性评估"></a>联邦学习的适用性评估</h4><p>为了验证第一个问题，本文构建了12种不同类型的智能设备和一个集线器设备，它们都依赖于树莓派，然后构建了智能办公实验环境。我们收集了21天的数据来评估基于联邦学习的认证。</p>
+<p>TABLE 2罗列了三种联邦学习场景中各种指标的表现。【准确率 (ACC)、精确率 (P)、召回率 (R)、假阳性率 (FPR)、假阴性率 (FNR) 和 F1-Score (F 1)）】</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203151058515.png"
+                      alt="image-20231203151058515"
+                ></p>
+<p>下图为“当全局模型在不同数量的验证者下收敛时的性能指标和轮数”图，横轴为验证者数量，纵轴是两个指标，达到收敛的轮数和性能指标。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203151516553.png"
+                      alt="image-20231203151516553"
+                ></p>
+<p>综上所述，群体之间的设备越相似，预测准确率、精确率、召回率、F1-Score越高，FPR和FNR越低。基于联邦学习的证明确实可以高精度地识别受感染的设备，以减少群体证明中的冗余证明过程。然而，联邦学习的性能指标并不等同于 FeSA 的性能，因为自动群体证明协议保证了整个方案的检测率。无论如何，即使受感染的设备逃避了联邦学习模型的检测，最大证明时间仍然可以确保它无法逃避证明。</p>
+<h4 id="大规模设备集群的适用性仿真评估"><a href="#大规模设备集群的适用性仿真评估" class="headerlink" title="大规模设备集群的适用性仿真评估"></a>大规模设备集群的适用性仿真评估</h4><p>为了验证第二个问题，本文通过理论分析和模拟评估了 FeSA 在大规模群中的性能。</p>
+<p>下图为“FeSA 对于具有不同数量边缘代理和候选设备的群体的性能”图，E表示边缘代理数量，C表示候选设备数量，横轴为n表示群体设备数量。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203151935228.png"
+                      alt="image-20231203151935228"
+                ></p>
+<p>当边缘代理和候选设备数量存在一定的比例的情况下，其run-time的消耗是一定的，不会发生改变。</p>
+<p>下图为“FeSA 对于具有不同数量群体设备和候选设备的群体的性能”图，表示群体设备数量，c表示候选设备数量，横轴为e表示边缘代理设备数量。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203152101106.png"
+                      alt="image-20231203152101106"
+                ></p>
+<p>当群体设备和群体中候选节点的数量一定时，边缘代理越多，每个边缘代理可以连接的候选设备就越少，运行时间就会越少。</p>
+<p>这意味着我们只需要引入一定数量的边缘代理，就可以将运行时间限制在一个小区间内。</p>
+<p>下面三张图为本文从Run-time of Attestation、 Run-time per device和Energy consumption三个维度对比了多种群体认证方法的效果。</p>
+<p>均可以看出FeSA的优越性。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203152126863.png"
+                      alt="image-20231203152126863"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203152132713.png"
+                      alt="image-20231203152132713"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231203152136951.png"
+                      alt="image-20231203152136951"
+                ></p>
+<h3 id="安全性总结"><a href="#安全性总结" class="headerlink" title="安全性总结"></a>安全性总结</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/image-20231128153027088.png"
+                      alt="image-20231128153027088"
+                ></p>
+<h2 id="三、相关概念"><a href="#三、相关概念" class="headerlink" title="三、相关概念"></a>三、相关概念</h2><p>这一部分介绍在阅读论文的过程中我所遇到的一些不太明白的专有名词。</p>
+<h3 id="Swarm-Attestation"><a href="#Swarm-Attestation" class="headerlink" title="Swarm Attestation"></a>Swarm Attestation</h3><p>群体认证，是一种在物联网设备中广泛应用的认证机制。它通过对设备群体的行为和状态进行验证，以确保设备的可信度和安全性。</p>
+<p>在传统的设备认证方法中，通常是以单个设备为单位进行认证。这种方法在大规模物联网中存在一些限制，因为设备数量庞大且分布广泛，逐个认证的方式效率低下且耗费资源。而Swarm Attestation则通过收集设备群体的行为信息，综合判断设备的可信度。</p>
+<p>Swarm Attestation的基本原理是，设备通过共同的行为和互相验证来证明它们是可信的一部分。例如，设备可以共同参与特定的网络协议、执行相同的安全策略、分享相似的传感器数据等。通过对这些行为进行监测和分析，可以判断设备是否符合预期的行为模式，从而进行认证。</p>
+<p>Swarm Attestation的好处包括对大规模物联网设备的高效认证，减少了认证的时间和资源成本，并提供了更全面的安全性评估。同时，它还能够检测到设备群体中的异常行为或潜在的安全威胁。</p>
+<p>总之，Swarm Attestation是一种通过对设备群体行为和状态的验证来实现物联网设备认证的机制，能够提供高效、全面和可信的认证保障。</p>
+<h3 id="challenge-response-mechanism"><a href="#challenge-response-mechanism" class="headerlink" title="challenge-response mechanism"></a>challenge-response mechanism</h3><ol>
+<li>verifier 发送一个证明质询</li>
+<li>收到质询后，证明者会在其内存中计算加密校验和，并根据收到的质询生成证明response。</li>
+<li>prover回发证明response</li>
+<li>验证者收到响应后，检查响应的有效性。</li>
+</ol>
+<h3 id="TOCTOU-attack"><a href="#TOCTOU-attack" class="headerlink" title="TOCTOU attack"></a>TOCTOU attack</h3><p>TOCTOU (Time-of-Check to Time-of-Use) 攻击者是指利用计算机系统或应用程序在检查某种状态或条件之后与之实际使用之间的时间间隙进行攻击的人或组织。在这种类型的攻击中，攻击者通过在检查和使用之间修改或篡改数据、配置文件、权限或其他关键资源，利用系统或应用程序的弱点进行攻击。TOCTOU攻击通常发生在并发系统中，其中多个进程或线程可以访问和修改共享资源。攻击者通过在检查和使用资源之间的时间间隙中进行干扰或篡改，绕过对资源访问的限制或验证，从而获取非授权的权限或执行恶意操作。</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> FeSA: Automatic Federated Swarm Attestation on Dynamic Large-Scale IoT Devices阅读笔记</li>
+        <li><strong>Author:</strong> tky</li>
+        <li><strong>Created at:</strong> 2023-11-28 15:17:27</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-12-09 19:24:41
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://www.class0ver.top/2023/11/28/FeSA-Automatic-Federated-Swarm-Attestation-on-Dynamic-Large-Scale-IoT-Devices阅读笔记/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/thesis/">#thesis</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/12/10/Mybatis-01-%E6%A6%82%E8%AE%BA/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Mybatis-01-概论</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/11/22/JDBC/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">JDBC</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://example.example.com',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">FeSA: Automatic Federated Swarm Attestation on Dynamic Large-Scale IoT Devices阅读笔记</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81Introduction%E5%86%99%E4%BD%9C%E6%80%9D%E8%B7%AF"><span class="nav-text">一、Introduction写作思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%96%87%E7%AB%A0%E6%80%BB%E7%BB%93"><span class="nav-text">二、文章总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%96%87%E7%AB%A0%E8%83%8C%E6%99%AF"><span class="nav-text">1、文章背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%BD%93%E5%89%8D%E9%9D%A2%E4%B8%B4%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">2、当前面临的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E9%92%88%E5%AF%B9%E4%B8%8A%E8%BF%B0%E9%97%AE%E9%A2%98%E6%8F%90%E5%87%BA%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-text">3、针对上述问题提出的解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81-FeSA%E5%A3%B0%E7%A7%B0%E6%95%88%E6%9E%9C"><span class="nav-text">4、 FeSA声称效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81-%E6%96%87%E7%AB%A0%E8%B4%A1%E7%8C%AE%E6%80%BB%E7%BB%93"><span class="nav-text">5、 文章贡献总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81FeSA%E6%96%B9%E6%A1%88%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6"><span class="nav-text">6、FeSA方案基本框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7%E3%80%81FeSA%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3"><span class="nav-text">7、FeSA方案详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8%E3%80%81-%E8%AF%84%E4%BC%B0"><span class="nav-text">8、 评估</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%80%A7%E6%80%BB%E7%BB%93"><span class="nav-text">安全性总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-text">三、相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Swarm-Attestation"><span class="nav-text">Swarm Attestation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#challenge-response-mechanism"><span class="nav-text">challenge-response mechanism</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TOCTOU-attack"><span class="nav-text">TOCTOU attack</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">tky</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.2</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

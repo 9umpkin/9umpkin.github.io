@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="tky">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/11/14/针对基于机器学习的自动化渗透测试工具——deepexloit的深度分析和使用/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="DeepExploit调研报告一、基本信息官方wiki感觉没有写什么有价值的东西，就installation可以看看。 官网的架构图如下  DE通过RPC协议与msf进行通信。 主要就是使用了A3C强化学习算法，调用msf进行渗透。 分为两种模式：  ​	train：利用框架对靶机进行渗透测试，保存训练数据，训练好A3C模型 ​	test：根据训练好的强化学习模型，对目标进行高效的渗透（比trai">
+<meta property="og:type" content="article">
+<meta property="og:title" content="针对基于机器学习的自动化渗透测试工具——DeepExloit的深度分析和使用">
+<meta property="og:url" content="http://example.com/2023/11/14/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="DeepExploit调研报告一、基本信息官方wiki感觉没有写什么有价值的东西，就installation可以看看。 官网的架构图如下  DE通过RPC协议与msf进行通信。 主要就是使用了A3C强化学习算法，调用msf进行渗透。 分为两种模式：  ​	train：利用框架对靶机进行渗透测试，保存训练数据，训练好A3C模型 ​	test：根据训练好的强化学习模型，对目标进行高效的渗透（比trai">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122160848647.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122160940160.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122160956854.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101628484.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101639746.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101649702.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101658187.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101708189.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101722328.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101738042.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101747239.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101757386.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101807113.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101817476.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101829500.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101840877.png">
+<meta property="og:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101852061.png">
+<meta property="article:published_time" content="2023-11-14T08:28:11.000Z">
+<meta property="article:modified_time" content="2023-11-22T08:09:58.191Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="web-security">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122160848647.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/jinglingqiu.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/jinglingqiu.ico">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/jinglingqiu.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            针对基于机器学习的自动化渗透测试工具——DeepExloit的深度分析和使用 -
+        
+        class0ver
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"class0ver","subtitle":{"text":["This is the first place to begin."],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"welcome here.","links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2023/7/20 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/fontawesome/duotone.min.css">
+
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                class0ver
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                
+                  
+                  
+                    <img src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101639746.png" alt="针对基于机器学习的自动化渗透测试工具——DeepExloit的深度分析和使用" />
+                  
+                  <h1 class="article-title-cover">针对基于机器学习的自动化渗透测试工具——DeepExloit的深度分析和使用</h1>
+                
+              </div>
+              
+                     
+            
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/miaowazhongzi.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">tky</span>
+                            
+                                <span class="author-label">Lv4</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-11-14 16:28:11</span>
+        <span class="mobile">2023-11-14 16:28:11</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-11-22 16:09:58</span>
+            <span class="mobile">2023-11-22 16:09:58</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/web-security/">web-security</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.3k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>8 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="DeepExploit调研报告"><a href="#DeepExploit调研报告" class="headerlink" title="DeepExploit调研报告"></a>DeepExploit调研报告</h1><h2 id="一、基本信息"><a href="#一、基本信息" class="headerlink" title="一、基本信息"></a>一、基本信息</h2><p>官方wiki感觉没有写什么有价值的东西，就installation可以看看。</p>
+<p>官网的架构图如下</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122160848647.png"
+                      alt="image-20231122160848647"
+                ></p>
+<p>DE通过RPC协议与msf进行通信。</p>
+<p>主要就是使用了A3C强化学习算法，调用msf进行渗透。</p>
+<p>分为两种模式：</p>
+<ul>
+<li>​	train：利用框架对靶机进行渗透测试，保存训练数据，训练好A3C模型</li>
+<li>​	test：根据训练好的强化学习模型，对目标进行高效的渗透（比train模式多了一步后渗透）</li>
+</ul>
+<p>核心架构图如下</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122160940160.png"
+                      alt="image-20231122160940160"
+                ></p>
+<h2 id="二、与机器学习的关系"><a href="#二、与机器学习的关系" class="headerlink" title="二、与机器学习的关系"></a>二、与机器学习的关系</h2><h3 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h3><p>强化学习是机器学习中的一个领域，强调如何基于环境而行动，以取得最大化的预期利益，是除了监督学习和非监督学习之外的第三种基本的机器学习方法。其基本框架如图3所示，基本流程为：智能体（agent）通过观察环境（Environment）的状态（State）做出行动（action），该行动会作用于环境，改变环境的状态，并且产生相关联的奖励（reward），智能体通过观察新的状态和奖励来进行下一步动作，由此循环。在这个过程中，智能体会不断得到奖励（有好的有坏的），从而不断进化，最终能以利益最大的目标实施行动。</p>
+<p>强化学习有几大要素，这些要素的定义至关重要，不同场景下，要素的定于也不尽相同，而这些要素的合理定义往往也决定强化学习算法能否生效。具体来说，想要使用强化学习来求解一个问题，首先需要定义如下3大要素：</p>
+<ul>
+<li>State（状态空间），state通常是算法的输入，包含agent作出action所需要的所有信息，需要满足马尔科夫性质，即agent可以仅根据当前做出动作，无需考虑过去的状态。</li>
+<li>Action（动作空间），action一般就是算法的输出，action是agent能够对环境产生影响的手段，所以一个任务的action设置的最基本要求是能够对environment产生有效影响。</li>
+<li>Reward（收益），reward是算法学习的指导，reward的设置往往决定了算法的最终效果是否理想，因此如何有效的设置reward也成为了强化学习应用的一个重要问题。</li>
+</ul>
+<p>在对以上3大要素进行合理定义后，算法（如A3C算法）才算有使用的基础。总之，强化学习任务中，3大要素的定义至关重要，定义越合理，问题的解决程度就越高。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122160956854.png"
+                      alt="image-20231122160956854"
+                ></p>
+<h3 id="Deep-Exploit对强化学习三要素的定义"><a href="#Deep-Exploit对强化学习三要素的定义" class="headerlink" title="Deep Exploit对强化学习三要素的定义"></a>Deep Exploit对强化学习三要素的定义</h3><ul>
+<li>状态空间。DE用5个状态表示其状态空间，在代码中表示为（ST_OS_TYPE，ST_SERV_NAME，ST_SERV_VER，ST_MODULE，ST_TARGET），分别代表：操作系统版本，端口上服务名称，服务版本，要利用msf的模块名称编号，模块中的target参数。</li>
+<li>动作空间。DE的动作空间为metasploit模块中所有payload集合。如果使用的metasploit版本为v6.1.9，payload总数为593个。</li>
+<li>收益。DE将收益定义为3种：R_GREAT&#x3D;100，R_GOOD &#x3D; 1，R_BAD &#x3D; -1，R_GREAT代表可以进行后渗透测试（返回的shell类型为meterpreter，而DE利用meterpreter进行后渗透），R_GOOD代表能返回shell但是不能获得meterpreter shell（意指无法利用该机器进行后渗透），R_BAD代表漏洞利用失败。实际上，在DE中，后渗透模块没有开发完善，只要能返回shell，都会被赋予最大收益GREAT。</li>
+</ul>
+<h3 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h3><p>DE跟强化学习最紧密的联系就在于train模式部分。</p>
+<p>首先，DE会初始化状态空间（包括OS版本、端口上的服务名称、服务版本、要利用的msf的module、模块中的target参数）：</p>
+<ol>
+<li><p>OS版本是不变的【实际上就是metasploit的target】（1&#x2F;5）。</p>
+</li>
+<li><p>DE会在收集到的信息中<strong>随机</strong>选择设备上的服务和版本（3&#x2F;5）。</p>
+</li>
+<li><p>确定了服务后，再metasploit中根据语句“search name: + ST_SERV_NAMEtype:exploit app:server”返回的可利用module列表，再<strong>随机</strong>选择一个module（4&#x2F;5）。</p>
+</li>
+<li><p>再在module可选的target列表中随机选择（5&#x2F;5）。</p>
+<p>由此状态空间就全部确定了。</p>
+</li>
+</ol>
+<p>然后，A3C算法会计算每个payload的概率，选择概率最高的payload调用metasploit进行漏洞利用，当渗透失败时，会<strong>随机更换target</strong>，由于不同target对应的可利用payload不一样，此时需要重新利用A3C算法计算概率最大的payload进行利用，当该步骤到一定次数还未成功，会再次进行状态空间初始化，对其他的服务、模块进行尝试。</p>
+<h2 id="三、针对靶机Metaexploitable2进行测试"><a href="#三、针对靶机Metaexploitable2进行测试" class="headerlink" title="三、针对靶机Metaexploitable2进行测试"></a>三、针对靶机Metaexploitable2进行测试</h2><h3 id="train模式"><a href="#train模式" class="headerlink" title="train模式"></a>train模式</h3><p>漏洞清单如下</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101628484.png"
+                      alt="image-20231122101628484"
+                ></p>
+<blockquote>
+<p>python3 DeepExploit.py -t 192.168.75.142 -m train</p>
+</blockquote>
+<h4 id="1、先使用Nmap进行了信息收集"><a href="#1、先使用Nmap进行了信息收集" class="headerlink" title="1、先使用Nmap进行了信息收集"></a>1、先使用Nmap进行了信息收集</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101639746.png"
+                      alt="image-20231122101639746"
+                ></p>
+<h4 id="2、载入相关信息"><a href="#2、载入相关信息" class="headerlink" title="2、载入相关信息"></a>2、载入相关信息</h4><p>分别载入了Metasploit的Exploit、Payload模块信息列表，还有收集到的端口信息。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101649702.png"
+                      alt="image-20231122101649702"
+                ></p>
+<p>target info文件内容</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101658187.png"
+                      alt="image-20231122101658187"
+                ></p>
+<h4 id="3、获取端口信息，主要看是不是webport"><a href="#3、获取端口信息，主要看是不是webport" class="headerlink" title="3、获取端口信息，主要看是不是webport"></a>3、获取端口信息，主要看是不是webport</h4><p>针对开放的WEB服务进行站内链接爬虫</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101708189.png"
+                      alt="image-20231122101708189"
+                ></p>
+<h4 id="4、针对爬虫爬取的链接进行CMS指纹识别"><a href="#4、针对爬虫爬取的链接进行CMS指纹识别" class="headerlink" title="4、针对爬虫爬取的链接进行CMS指纹识别"></a>4、针对爬虫爬取的链接进行CMS指纹识别</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101722328.png"
+                      alt="image-20231122101722328"
+                ></p>
+<h4 id="5、载入字典进行暴力破解"><a href="#5、载入字典进行暴力破解" class="headerlink" title="5、载入字典进行暴力破解"></a>5、载入字典进行暴力破解</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101738042.png"
+                      alt="image-20231122101738042"
+                ></p>
+<h4 id="6、分析开放端口的msf信息（module列表之类的）"><a href="#6、分析开放端口的msf信息（module列表之类的）" class="headerlink" title="6、分析开放端口的msf信息（module列表之类的）"></a>6、分析开放端口的msf信息（module列表之类的）</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101747239.png"
+                      alt="image-20231122101747239"
+                ></p>
+<h4 id="7、载入msf进行渗透"><a href="#7、载入msf进行渗透" class="headerlink" title="7、载入msf进行渗透"></a>7、载入msf进行渗透</h4><p>这里我开了十个线程，他会一边尝试一边进行reward记录</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101757386.png"
+                      alt="image-20231122101757386"
+                ></p>
+<p>这里可以看到有一个payload起效了，是5432端口的postgresql服务，reward给了100。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101807113.png"
+                      alt="image-20231122101807113"
+                ></p>
+<h4 id="8、生成结果"><a href="#8、生成结果" class="headerlink" title="8、生成结果"></a>8、生成结果</h4><p>使用如下命令可以生成训练数据，但是好像并没有达到理想的状态，目前只看到了22行数据，但是metaexploitable2里面应该不是只有22个漏洞可以利用。</p>
+<blockquote>
+<p>python3 CreateReport.py -m train</p>
+</blockquote>
+<p>.&#x2F;report&#x2F;train&#x2F;DeepExploit_train_report.html展示了的训练数据。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101817476.png"
+                      alt="image-20231122101817476"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101829500.png"
+                      alt="image-20231122101829500"
+                ></p>
+<h3 id="test模式"><a href="#test模式" class="headerlink" title="test模式"></a>test模式</h3><p>已经对Metaexploitable2 train过一遍了，再test的话，一旦metasploit渗透测试成功，就会进行后渗透（但是后渗透体现在哪里我还没看出来）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101840877.png"
+                      alt="image-20231122101840877"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/%E9%92%88%E5%AF%B9%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94DeepExloit%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90%E5%92%8C%E4%BD%BF%E7%94%A8/image-20231122101852061.png"
+                      alt="image-20231122101852061"
+                ></p>
+<h2 id="四、工具的一些缺陷"><a href="#四、工具的一些缺陷" class="headerlink" title="四、工具的一些缺陷"></a>四、工具的一些缺陷</h2><p>刚好有一个win7，就想跑来试试，结果我发现他跑不出来永恒之蓝TAT。就去查了然后整理了一下。</p>
+<ol>
+<li>服务支持问题。DE框架的“config.ini”文件中限定了DE只支持如下服务的渗透：vsftpd@ssh@telnet@postfix@bind@apache@rpc@samba@java@proftpd@mysql@postgresql@vnc@irc@jetty@tomcat@ldap@nginx@php@phpmyadmin@wordpress@joomla@drupal@sugarcrm@webmin@moodle@dav@oscommerce@tikiwiki@phpbb@mediawiki@unix@python@ubuntu@http@ms-wbt-server@upnp。<ol>
+<li>metasploit所支持的服务远远不止这些，对于所有metasploit支持的服务，DE理论上都应该可以支持才对。然而这里却做了限定。</li>
+<li>DE没有做不同软件对同一服务在名称上的映射。具体来说，nmap和metasploit对于同一服务往往使用不同名称进行表示，不同版本之间也有差异，如smb服务：在metasploit搜索关键词“smb”即可，而nmap对smb服务的识别结果为“microsoft-ds” ，该关键词在metasploit中无效。<strong>“MS17-010”永恒之蓝漏洞无法利用就是这个原因</strong>。</li>
+</ol>
+</li>
+<li>算法逻辑问题，导致了很多无效尝试。<ol>
+<li>DE会随机选择target尝试进行渗透，但是根据前文介绍，target代表的是操作系统，而操作系统DE在信息收集阶段已经识别了，并且作为状态中的一个固定变量，那么还有什么必要进行所有target的尝试呢？</li>
+<li>第二，DE将“是否返回metepreter shell”作为漏洞是否利用成功的标志从而进行后渗透，既然如此为什么要尝试其他类型的payload呢？metasploit中的payload共计593种，meterpreter shell 只有167种，这意味着，有426种payload实际上无需尝试。</li>
+<li>DE还存在“漏尝试”的情况，有些payload始终未被尝试。在训练模式下，A3C算法对每个payload计算概率，对利用成功率最大的payload进行尝试，这种方式直接导致，在同一模型、同一状态下，始终测试同一个payload，虽然模型在训练的时候会动态更新，但是这种设计思路仍会存在某些payload未曾测试的情况，遗漏有可能利用成功的payload。</li>
+</ol>
+</li>
+<li>程序设计问题。DE在训练模式中使用了多线程进行加速，但是线程之间完全独立，metasploit渗透的各个参数（服务+模块+target）又都是随机的，这种设计机制会导致：同一线程内出现重复的尝试，不同线程出现重复的尝试。</li>
+<li>渗透目标问题。DE框架判定渗透成功的标志为“返回了meterpreter shell”，计算的是在“服务，模块，target”确定的情况下，不同payload的成功概率，但是在一般渗透测试过程中，需要判断的往往是“某种漏洞能否利用成功”，换句话说，即metasploit中的某个模块能否利用成功，至于利用成功后的动作（payload）不是重点。若能改变渗透目标，计算每个模块的成功概率，会更加符合实际需求。</li>
+</ol>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 针对基于机器学习的自动化渗透测试工具——DeepExloit的深度分析和使用</li>
+        <li><strong>Author:</strong> tky</li>
+        <li><strong>Created at:</strong> 2023-11-14 16:28:11</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-11-22 16:09:58
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://www.class0ver.top/2023/11/14/针对基于机器学习的自动化渗透测试工具——DeepExloit的深度分析和使用/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/web-security/">#web-security</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/11/22/JDBC/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">JDBC</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/11/10/Filter-Listener/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Filter&amp;Listener</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://example.example.com',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">针对基于机器学习的自动化渗透测试工具——DeepExloit的深度分析和使用</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DeepExploit%E8%B0%83%E7%A0%94%E6%8A%A5%E5%91%8A"><span class="nav-text">DeepExploit调研报告</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="nav-text">一、基本信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-text">二、与机器学习的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="nav-text">强化学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deep-Exploit%E5%AF%B9%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%89%E8%A6%81%E7%B4%A0%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-text">Deep Exploit对强化学习三要素的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B"><span class="nav-text">总结一下</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E9%92%88%E5%AF%B9%E9%9D%B6%E6%9C%BAMetaexploitable2%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="nav-text">三、针对靶机Metaexploitable2进行测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#train%E6%A8%A1%E5%BC%8F"><span class="nav-text">train模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#test%E6%A8%A1%E5%BC%8F"><span class="nav-text">test模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%B7%A5%E5%85%B7%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BC%BA%E9%99%B7"><span class="nav-text">四、工具的一些缺陷</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">tky</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.2</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
