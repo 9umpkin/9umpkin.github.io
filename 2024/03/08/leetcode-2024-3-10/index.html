@@ -13,15 +13,15 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2024/03/08/leetcode-2024-3-9/"/>
+    <link rel="canonical" href="http://example.com/2024/03/08/leetcode-2024-3-10/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
         <meta name="description" content="142. 环形链表 II给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode-2024-3-9">
-<meta property="og:url" content="http://example.com/2024/03/08/leetcode-2024-3-9/index.html">
+<meta property="og:title" content="leetcode-2024-3-10【链表-环形链表】">
+<meta property="og:url" content="http://example.com/2024/03/08/leetcode-2024-3-10/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="142. 环形链表 II给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为">
 <meta property="og:locale" content="en_US">
@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png">
 <meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test3.png">
 <meta property="article:published_time" content="2024-03-08T07:14:49.000Z">
-<meta property="article:modified_time" content="2024-03-08T07:15:12.352Z">
+<meta property="article:modified_time" content="2024-03-10T02:18:29.278Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="leetcode刷题">
 <meta name="twitter:card" content="summary">
@@ -45,7 +45,7 @@
     
     <title>
         
-            leetcode-2024-3-9 -
+            leetcode-2024-3-10【链表-环形链表】 -
         
         class0ver
     </title>
@@ -251,7 +251,11 @@
 
             <div class="article-title">
                 
-                  <h1 class="article-title-regular">leetcode-2024-3-9</h1>
+                  
+                  
+                    <img src="/../images/leetcode-2024-3-10/image-20240310101821052.png" alt="leetcode-2024-3-10【链表-环形链表】" />
+                  
+                  <h1 class="article-title-cover">leetcode-2024-3-10【链表-环形链表】</h1>
                 
               </div>
               
@@ -280,8 +284,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-03-08 15:15:12</span>
-            <span class="mobile">2024-03-08 15:15:12</span>
+            <span class="desktop">2024-03-10 10:18:29</span>
+            <span class="mobile">2024-03-10 10:18:29</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -303,12 +307,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>337 Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>796 Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>1 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>3 Mins</span>
         </span>
     
     
@@ -361,23 +365,55 @@
 <li><code>pos</code> 的值为 <code>-1</code> 或者链表中的一个有效索引</li>
 </ul>
 <p><strong>进阶：</strong>你是否可以使用 <code>O(1)</code> 空间解决此题？</p>
-<h2 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h2>
+<h2 id="方案一-双指针"><a href="#方案一-双指针" class="headerlink" title="方案一  双指针"></a>方案一  双指针</h2><p>这个题一开始我是没有做出来的，而且其实如果不看题解我一辈子都做不出来TAT，谁能想到是高中物理追击问题啊TAT</p>
+<p>该题的分析如下：</p>
+<ol>
+<li><p>首先，设置快慢两个指针，一个指针每次走一步，一个指针每次走两步，如果链表中存在环，那么两个指针一定会相遇。</p>
+</li>
+<li><p>设链表共有a+b个节点，其中链表头部到环入口有a个节点（不计入入口），设两指针分别走了f，s步：</p>
+<ul>
+<li>f &#x3D; 2s</li>
+<li>f &#x3D; s + nb(n是f比s多走的环的数量)</li>
+</ul>
+<p>则可得</p>
+<div class="highlight-container" data-rel="Txt"><figure class="iseeu highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2s - s - nb = 0</span><br><span class="line">s = nb</span><br><span class="line">f = 2nb</span><br></pre></td></tr></table></figure></div>
+
+<p>则fast和slow指针分别走了2n，n个环的周长。</p>
+</li>
+<li><p>要找到链表入口点的方法：</p>
+<ul>
+<li>已知链表长度为a+b，即只要从链表头部走a步即可找到链表入口点。</li>
+<li>从入口点开始遍历链表，走无论多少个环都可以再次回到入口点，即从链表头部走a+nb步</li>
+</ul>
+</li>
+<li><p>我们并不知道a是多少，但我们有两个办法可以到达入口点，也就是说我们用这两个指针同步移动，是否相等来判断是否到达环入口点。</p>
+<ul>
+<li>此时，已知s &#x3D; nb，那么从slow当前位置走a步就能够到达环入口节点。</li>
+<li>此时，从链表头部开始移动，走a步即可到达环入口节点。</li>
+</ul>
+</li>
+<li><p>令fast &#x3D; head，然后让fast和slow同步移动，等二者指向同一节点时，该节点即为环入口节点。</p>
+</li>
+</ol>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title function_">detectCycle</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">dummy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ListNode</span>(-<span class="number">1</span>, head);</span><br><span class="line"></span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">fast</span> <span class="operator">=</span> dummy, slow = dummy;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (fast == <span class="literal">null</span> || fast.next == <span class="literal">null</span>) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        fast = fast.next.next;</span><br><span class="line">        slow = slow.next;</span><br><span class="line">    &#125;<span class="keyword">while</span> (fast != slow);</span><br><span class="line"></span><br><span class="line">    fast = dummy;</span><br><span class="line">    <span class="keyword">while</span>(fast != slow)&#123;</span><br><span class="line">        fast = fast.next;</span><br><span class="line">        slow = slow.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> slow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
             </div>
 
             
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> leetcode-2024-3-9</li>
+        <li><strong>Title:</strong> leetcode-2024-3-10【链表-环形链表】</li>
         <li><strong>Author:</strong> tky</li>
         <li><strong>Created at:</strong> 2024-03-08 15:14:49</li>
         
             <li>
-                <strong>Updated at:</strong> 2024-03-08 15:15:12
+                <strong>Updated at:</strong> 2024-03-10 10:18:29
             </li>
         
         <li>
-            <strong>Link:</strong> https://www.class0ver.top/2024/03/08/leetcode-2024-3-9/
+            <strong>Link:</strong> https://www.class0ver.top/2024/03/08/leetcode-2024-3-10/
         </li>
         <li>
             <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
@@ -402,6 +438,21 @@
 
             
                 <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2024/03/10/leetcode-%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">leetcode-代码随想录链表总结</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
                     
                     
                         <div class="article-next">
@@ -475,8 +526,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">leetcode-2024-3-9</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-II"><span class="nav-text">142. 环形链表 II</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80"><span class="nav-text">方案一</span></a></li></ol></li></ol>
+        <div class="page-title">leetcode-2024-3-10【链表-环形链表】</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-II"><span class="nav-text">142. 环形链表 II</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80-%E5%8F%8C%E6%8C%87%E9%92%88"><span class="nav-text">方案一  双指针</span></a></li></ol></li></ol>
 
     </div>
 </div>
