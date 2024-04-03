@@ -18,20 +18,24 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="一、IoC控制反转控制反转指的就是：原本交给代码&#x2F;程序员来实现的功能，主动权交到了用户的手上，让用户仅需要修改配置文件的相关配置就可以实现对功能的控制。 IoC也被称为依赖注入（DI）。它是一个过程，对象仅通过构造参数、工厂方法的参数或在对象实例被构造或从工厂方法返回后在其上设置的属性来定义其依赖关系（即它们与之合作的其他对象）。然后容器在创建 bean 时注入这些依赖关系。这个过程从根">
+        <meta name="description" content="IoC：控制反转，DI：依赖注入。这两个是Spring实现的重要功能。 控制反转指的就是：原本交给代码&#x2F;程序员来实现的功能，主动权交到了用户的手上，让用户仅需要修改配置文件的相关配置就可以实现对功能的控制。 IoC也被称为依赖注入（DI）。它是一个过程，对象仅通过构造参数、工厂方法的参数或在对象实例被构造或从工厂方法返回后在其上设置的属性来定义其依赖关系（即它们与之合作的其他对象）。然后">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring-02-IoC概述">
+<meta property="og:title" content="Spring-02-IoC和DI">
 <meta property="og:url" content="http://example.com/2024/02/27/Spring-02-IOC/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="一、IoC控制反转控制反转指的就是：原本交给代码&#x2F;程序员来实现的功能，主动权交到了用户的手上，让用户仅需要修改配置文件的相关配置就可以实现对功能的控制。 IoC也被称为依赖注入（DI）。它是一个过程，对象仅通过构造参数、工厂方法的参数或在对象实例被构造或从工厂方法返回后在其上设置的属性来定义其依赖关系（即它们与之合作的其他对象）。然后容器在创建 bean 时注入这些依赖关系。这个过程从根">
+<meta property="og:description" content="IoC：控制反转，DI：依赖注入。这两个是Spring实现的重要功能。 控制反转指的就是：原本交给代码&#x2F;程序员来实现的功能，主动权交到了用户的手上，让用户仅需要修改配置文件的相关配置就可以实现对功能的控制。 IoC也被称为依赖注入（DI）。它是一个过程，对象仅通过构造参数、工厂方法的参数或在对象实例被构造或从工厂方法返回后在其上设置的属性来定义其依赖关系（即它们与之合作的其他对象）。然后">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/Spring-02-IOC/image-20240227171420513.png">
 <meta property="og:image" content="http://example.com/images/Spring-02-IOC/image-20240227200126222.png">
 <meta property="og:image" content="http://example.com/images/Spring-02-IOC/image-20240227154504379.png">
 <meta property="og:image" content="http://example.com/images/Spring-02-IOC/image-20240227154935850.png">
 <meta property="og:image" content="http://example.com/images/Spring-02-IOC/image-20240227203315099.png">
+<meta property="og:image" content="http://example.com/images/Spring-02-IOC/image-20240402195837257.png">
+<meta property="og:image" content="http://example.com/images/Spring-02-IOC/image-20240402200208661.png">
+<meta property="og:image" content="http://example.com/images/Spring-02-IOC/image-20240402200442783.png">
+<meta property="og:image" content="http://example.com/images/Spring-02-IOC/image-20240402210959550.png">
 <meta property="article:published_time" content="2024-02-27T07:21:56.000Z">
-<meta property="article:modified_time" content="2024-02-27T12:38:46.091Z">
+<meta property="article:modified_time" content="2024-04-02T13:12:37.086Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
@@ -47,7 +51,7 @@
     
     <title>
         
-            Spring-02-IoC概述 -
+            Spring-02-IoC和DI -
         
         class0ver
     </title>
@@ -255,9 +259,9 @@
                 
                   
                   
-                    <img src="/../images/Spring-02-IOC/image-20240227200126222.png" alt="Spring-02-IoC概述" />
+                    <img src="/../images/Spring-02-IOC/image-20240227200126222.png" alt="Spring-02-IoC和DI" />
                   
-                  <h1 class="article-title-cover">Spring-02-IoC概述</h1>
+                  <h1 class="article-title-cover">Spring-02-IoC和DI</h1>
                 
               </div>
               
@@ -286,8 +290,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-02-27 20:38:46</span>
-            <span class="mobile">2024-02-27 20:38:46</span>
+            <span class="desktop">2024-04-02 21:12:37</span>
+            <span class="mobile">2024-04-02 21:12:37</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -309,12 +313,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.4k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.9k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>13 Mins</span>
         </span>
     
     
@@ -330,7 +334,8 @@
             
 
             <div class="article-content markdown-body">
-                <h1 id="一、IoC控制反转"><a href="#一、IoC控制反转" class="headerlink" title="一、IoC控制反转"></a>一、IoC控制反转</h1><p>控制反转指的就是：原本交给代码&#x2F;程序员来实现的功能，主动权交到了用户的手上，让用户仅需要修改配置文件的相关配置就可以实现对功能的控制。</p>
+                <p>IoC：控制反转，DI：依赖注入。这两个是Spring实现的重要功能。</p>
+<p>控制反转指的就是：原本交给代码&#x2F;程序员来实现的功能，主动权交到了用户的手上，让用户仅需要修改配置文件的相关配置就可以实现对功能的控制。</p>
 <p>IoC也被称为依赖注入（DI）。它是一个过程，对象仅通过构造参数、工厂方法的参数或在对象实例被构造或从工厂方法返回后在其上设置的属性来定义其依赖关系（即它们与之合作的其他对象）。然后容器在创建 bean 时注入这些依赖关系。这个过程从根本上说是Bean本身通过使用<strong>直接构建类</strong>或诸如<strong>服务定位模式的机制</strong>来控制其依赖关系的实例化或位置的逆过程（因此被称为控制反转）。【这是从官网copy的，但我看不懂呢。】</p>
 <p>IoC是Spring框架的核心内容，使用多种方式完美的实现了IoC，可以使用XML配置，也可以使用注解， 新版本的Spring也可以零配置实现IoC。 Spring容器在初始化时先读取配置文件，根据配置文件或元数据创建与组织对象存入容器中，程序使用时再从Ioc容器中取出需要的对象。</p>
 <p>在 Spring 中， IoC 容器是 Spring 用来实现 IoC 的载体， IoC 容器实际上就是个 <strong>Map（key，value）</strong>，Map 中存放的是各种对象。</p>
@@ -406,6 +411,85 @@
                       alt="image-20240227203315099"
                 ></p>
 <p> <strong>对象由Spring来创建，管理，装配。</strong></p>
+<h2 id="5-Spring做了哪些事"><a href="#5-Spring做了哪些事" class="headerlink" title="5. Spring做了哪些事"></a>5. Spring做了哪些事</h2><p>Spring技术对IoC思想进行了实现</p>
+<ul>
+<li>提供了一个容器，称为IoC容器，用来充当IoC思想的外部。将对象放在IoC容器中，在代码需要对象的时候，IoC容器提供。</li>
+<li>IoC容器负责兑现大哥创建、初始化等一系列工作，被创建或者被管理的对象在容器中称为Bean。</li>
+<li>DI：依赖注入。如果容器中的对象之间存在依赖关系，则容器会给他们进行关系绑定，这就叫做依赖注入。</li>
+</ul>
+<p><strong>充分解耦+正常运行</strong></p>
+<h2 id="6-IOC创建对象方式"><a href="#6-IOC创建对象方式" class="headerlink" title="6. IOC创建对象方式"></a>6. IOC创建对象方式</h2><h3 id="6-1-通过无参构造创建"><a href="#6-1-通过无参构造创建" class="headerlink" title="6.1 通过无参构造创建"></a>6.1 通过无参构造创建</h3><p>默认就是使用无参构造进行单例对象的创建。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/Spring-02-IOC/image-20240402195837257.png"
+                      alt="image-20240402195837257"
+                ></p>
+<h3 id="6-2-通过有参构造创建"><a href="#6-2-通过有参构造创建" class="headerlink" title="6.2 通过有参构造创建"></a>6.2 通过有参构造创建</h3><p>修改标签，使用<constructor-arg></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/Spring-02-IOC/image-20240402200208661.png"
+                      alt="image-20240402200208661"
+                ></p>
+<p>还发现了一个有趣的现象，是之前没有注意到的。那就是当我保留使用无参构造进行对象创建的people-bean，即使我并不在测试代码中get，也会走无参构造来创建这个对象，说明，<strong>在beans.xml装载的过程中，单例模式的对象就已经被容器创建好了</strong>。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/Spring-02-IOC/image-20240402200442783.png"
+                      alt="image-20240402200442783"
+                ></p>
+<p>使用有参构造的时候，除了使用name，还可以使用：</p>
+<ul>
+<li>type：java.lang.String [java数据类型]</li>
+<li>index：0 [属性在类中定义的位置索引]</li>
+</ul>
+<h2 id="7-Spring配置"><a href="#7-Spring配置" class="headerlink" title="7. Spring配置"></a>7. Spring配置</h2><h3 id="7-1-别名"><a href="#7-1-别名" class="headerlink" title="7.1 别名"></a>7.1 别名</h3><p>在bean标签中设置别名：</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;address&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.example.pojo.Address&quot;</span> <span class="attr">name</span>=<span class="string">&quot;address2 address3; address4, address5&quot;</span>&gt;</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure></div>
+
+<p>使用alias标签设置：其中name为bean的已有名字，alias为别名设置。</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">alias</span> <span class="attr">name</span>=<span class="string">&quot;address5&quot;</span> <span class="attr">alias</span>=<span class="string">&quot;123&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="7-2-Bean设置"><a href="#7-2-Bean设置" class="headerlink" title="7.2 Bean设置"></a>7.2 Bean设置</h3><div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--bean就是java对象,由Spring创建和管理--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">    id 是bean的标识符,要唯一,如果没有配置id,name就是默认标识符</span></span><br><span class="line"><span class="comment">    如果配置id,又配置了name,那么name是别名</span></span><br><span class="line"><span class="comment">    name可以设置多个别名,可以用逗号,分号,空格隔开</span></span><br><span class="line"><span class="comment">    如果不配置id和name,可以根据applicationContext.getBean(.class)获取对象;</span></span><br><span class="line"><span class="comment">    class是bean的全限定名=包名+类名</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;hello&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hello2 h2,h3;h4&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.kuang.pojo.Hello&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Spring&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="7-3-import"><a href="#7-3-import" class="headerlink" title="7.3 import"></a>7.3 import</h3><p>可以用import引入其他的Spring容器配置文件，常用于团队协作</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">import</span> <span class="attr">resource</span>=<span class="string">&quot;&#123;path&#125;/beans.xml&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="8-DI依赖注入"><a href="#8-DI依赖注入" class="headerlink" title="8. DI依赖注入"></a>8. DI依赖注入</h2><p>依赖注入的意思就是说Spring容器不仅能够创建程序所需要的对象，还可以在这些对象之间存在依赖的情况下，给他们进行关系绑定。</p>
+<h3 id="8-1-构造器注入"><a href="#8-1-构造器注入" class="headerlink" title="8.1 构造器注入"></a>8.1 构造器注入</h3><p>上面提到的关于IoC的例子全都是构造器注入。</p>
+<h3 id="8-2-setter注入"><a href="#8-2-setter注入" class="headerlink" title="8.2 setter注入"></a>8.2 setter注入</h3><p>Spring还可以使用Setter进行依赖注入，要求必须有set方法 , set方法的方法名由set + 属性首字母大写</p>
+<p>如果是boolean类型，没有setter方法，使用is[?]</p>
+<p>编写一个people.class</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.pojo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">People</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Address address;</span><br><span class="line">    <span class="keyword">private</span> String[] books;</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; hobbys;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, String&gt; card;</span><br><span class="line">    <span class="keyword">private</span> Set&lt;String&gt; games;</span><br><span class="line">    <span class="keyword">private</span> Properties info;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;People&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;name=&#x27;&quot;</span> + name + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, address=&quot;</span> + address +</span><br><span class="line">                <span class="string">&quot;, books=&quot;</span> + Arrays.toString(books) +</span><br><span class="line">                <span class="string">&quot;, hobbys=&quot;</span> + hobbys +</span><br><span class="line">                <span class="string">&quot;, card=&quot;</span> + card +</span><br><span class="line">                <span class="string">&quot;, games=&quot;</span> + games +</span><br><span class="line">                <span class="string">&quot;, info=&quot;</span> + info +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">People</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">People</span><span class="params">(String name, Address address, String[] books, List&lt;String&gt; hobbys, Map&lt;String, String&gt; card, Set&lt;String&gt; games, Properties info)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.address = address;</span><br><span class="line">        <span class="built_in">this</span>.books = books;</span><br><span class="line">        <span class="built_in">this</span>.hobbys = hobbys;</span><br><span class="line">        <span class="built_in">this</span>.card = card;</span><br><span class="line">        <span class="built_in">this</span>.games = games;</span><br><span class="line">        <span class="built_in">this</span>.info = info;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Address <span class="title function_">getAddress</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> address;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAddress</span><span class="params">(Address address)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.address = address;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>故意设置了很多属性，便于后面在xml中测试依赖注入，各类配置格式如下</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--String类型注入null--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">null</span>/&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--bean类型--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;address&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;address&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--String[]--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;books&quot;</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>book1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>book2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--Map&lt;String, Stiring&gt;--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;card&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">map</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">&quot;card1&quot;</span> <span class="attr">value</span>=<span class="string">&quot;11111&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">&quot;card2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;22222&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">&quot;card3&quot;</span> <span class="attr">value</span>=<span class="string">&quot;33333&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--Set&lt;String&gt;--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;games&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>lol<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>BOB<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--List&lt;String&gt;--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;hobbys&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>music<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>TV<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>singing<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--Properties--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;info&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">props</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">&quot;name&quot;</span>&gt;</span>hihihi<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">&quot;age&quot;</span>&gt;</span>12<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">&quot;gender&quot;</span>&gt;</span>female<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">props</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="8-3-拓展方式注入"><a href="#8-3-拓展方式注入" class="headerlink" title="8.3 拓展方式注入"></a>8.3 拓展方式注入</h3><p>使用p标签和c标签，其实就是在两个空间分别使用属性注入和构造器注入。</p>
+<h4 id="p标签"><a href="#p标签" class="headerlink" title="p标签"></a>p标签</h4><p>首先需要在beans.xml头部导入xml配置依赖的命名空间</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>p表示properties，使用set注入，因此没有构造器也并不影响。</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.classover.pojo.User&quot;</span> <span class="attr">p:name</span>=<span class="string">&quot;tky&quot;</span> <span class="attr">p:age</span>=<span class="string">&quot;18&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="c标签"><a href="#c标签" class="headerlink" title="c标签"></a>c标签</h4><p>跟p很相似，区别在于p使用set进行注入，c使用有参构造进行注入</p>
+<p>导入命名空间后使用</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns:c=&quot;http://www.springframework.org/schema/c&quot;</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.classover.pojo.User&quot;</span> <span class="attr">c:name</span>=<span class="string">&quot;tky&quot;</span> <span class="attr">c:age</span>=<span class="string">&quot;18&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="8-4-Bean作用域"><a href="#8-4-Bean作用域" class="headerlink" title="8.4 Bean作用域"></a>8.4 Bean作用域</h3><p>官方文档中可以看到各种作用域的介绍，其实很简单。</p>
+<ul>
+<li>singleton就是从始至终对于指定的类，如果配置文件中只写了一个bean，那么无论程序从容器中取多少次，容器中都只存在这一个对象。</li>
+<li>prototype就是说，每一次从容器中取对象，容器都会新建一个bean（对象）供程序使用。</li>
+<li>request、session、application、websocket是web领域的内容，在springmvc中详细学习。</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/Spring-02-IOC/image-20240402210959550.png"
+                      alt="image-20240402210959550"
+                ></p>
 
             </div>
 
@@ -413,12 +497,12 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> Spring-02-IoC概述</li>
+        <li><strong>Title:</strong> Spring-02-IoC和DI</li>
         <li><strong>Author:</strong> tky</li>
         <li><strong>Created at:</strong> 2024-02-27 15:21:56</li>
         
             <li>
-                <strong>Updated at:</strong> 2024-02-27 20:38:46
+                <strong>Updated at:</strong> 2024-04-02 21:12:37
             </li>
         
         <li>
@@ -535,8 +619,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">Spring-02-IoC概述</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81IoC%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC"><span class="nav-text">一、IoC控制反转</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%A6%96%E5%85%88%E4%B8%BE%E4%B8%80%E4%B8%AA%E5%B0%8F%E4%BE%8B%E5%AD%90"><span class="nav-text">1. 首先举一个小例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-HelloSpring"><span class="nav-text">2. HelloSpring</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%80%9D%E8%80%83%E4%B8%80%E4%B8%8B"><span class="nav-text">3. 思考一下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E4%BD%BF%E7%94%A8Spring%E4%BF%AE%E6%94%B9%E4%B8%80%E4%B8%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%B0%8F%E4%BE%8B%E5%AD%90"><span class="nav-text">4. 使用Spring修改一下第一个小例子</span></a></li></ol></li></ol>
+        <div class="page-title">Spring-02-IoC和DI</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%A6%96%E5%85%88%E4%B8%BE%E4%B8%80%E4%B8%AA%E5%B0%8F%E4%BE%8B%E5%AD%90"><span class="nav-text">1. 首先举一个小例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-HelloSpring"><span class="nav-text">2. HelloSpring</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%80%9D%E8%80%83%E4%B8%80%E4%B8%8B"><span class="nav-text">3. 思考一下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E4%BD%BF%E7%94%A8Spring%E4%BF%AE%E6%94%B9%E4%B8%80%E4%B8%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%B0%8F%E4%BE%8B%E5%AD%90"><span class="nav-text">4. 使用Spring修改一下第一个小例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Spring%E5%81%9A%E4%BA%86%E5%93%AA%E4%BA%9B%E4%BA%8B"><span class="nav-text">5. Spring做了哪些事</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-IOC%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E6%96%B9%E5%BC%8F"><span class="nav-text">6. IOC创建对象方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-%E9%80%9A%E8%BF%87%E6%97%A0%E5%8F%82%E6%9E%84%E9%80%A0%E5%88%9B%E5%BB%BA"><span class="nav-text">6.1 通过无参构造创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-%E9%80%9A%E8%BF%87%E6%9C%89%E5%8F%82%E6%9E%84%E9%80%A0%E5%88%9B%E5%BB%BA"><span class="nav-text">6.2 通过有参构造创建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Spring%E9%85%8D%E7%BD%AE"><span class="nav-text">7. Spring配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-%E5%88%AB%E5%90%8D"><span class="nav-text">7.1 别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-Bean%E8%AE%BE%E7%BD%AE"><span class="nav-text">7.2 Bean设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-import"><span class="nav-text">7.3 import</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-DI%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5"><span class="nav-text">8. DI依赖注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-%E6%9E%84%E9%80%A0%E5%99%A8%E6%B3%A8%E5%85%A5"><span class="nav-text">8.1 构造器注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-setter%E6%B3%A8%E5%85%A5"><span class="nav-text">8.2 setter注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-%E6%8B%93%E5%B1%95%E6%96%B9%E5%BC%8F%E6%B3%A8%E5%85%A5"><span class="nav-text">8.3 拓展方式注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4-Bean%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-text">8.4 Bean作用域</span></a></li></ol></li></ol>
 
     </div>
 </div>
