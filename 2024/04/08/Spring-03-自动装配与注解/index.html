@@ -13,26 +13,20 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2023/11/10/mvc三层架构/"/>
+    <link rel="canonical" href="http://example.com/2024/04/08/spring-03-自动装配与注解/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="什么是MVC？model view controller 模型、视图、控制器 早年架构 用户直接访问控制层Controller，由控制器就可以直接操作数据库。这就导致，我们必须要在Servlet中写CRUD的代码，程序非常臃肿，不利于维护。Servlet需要处理请求、响应、试图跳转、处理JDBC、处理业务代码、处理逻辑代码。 架构上改进：加一层。 MVC三层架构 Model  业务处理：业务逻辑（">
-<meta property="og:type" content="article">
-<meta property="og:title" content="MVC三层架构">
-<meta property="og:url" content="http://example.com/2023/11/10/MVC%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84/index.html">
+        <meta property="og:type" content="article">
+<meta property="og:title" content="Spring-03-自动装配与注解">
+<meta property="og:url" content="http://example.com/2024/04/08/Spring-03-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E4%B8%8E%E6%B3%A8%E8%A7%A3/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="什么是MVC？model view controller 模型、视图、控制器 早年架构 用户直接访问控制层Controller，由控制器就可以直接操作数据库。这就导致，我们必须要在Servlet中写CRUD的代码，程序非常臃肿，不利于维护。Servlet需要处理请求、响应、试图跳转、处理JDBC、处理业务代码、处理逻辑代码。 架构上改进：加一层。 MVC三层架构 Model  业务处理：业务逻辑（">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/images/MVC%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84/image-20231110093144310.png">
-<meta property="og:image" content="http://example.com/images/MVC%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84/image-20231110093405800.png">
-<meta property="article:published_time" content="2023-11-10T01:29:50.000Z">
-<meta property="article:modified_time" content="2023-11-10T01:36:32.179Z">
+<meta property="article:published_time" content="2024-04-08T11:20:46.000Z">
+<meta property="article:modified_time" content="2024-04-08T11:20:46.457Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="javaWeb">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/MVC%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84/image-20231110093144310.png">
     
     
     <!--- Icon Part-->
@@ -44,7 +38,7 @@
     
     <title>
         
-            MVC三层架构 -
+            Spring-03-自动装配与注解 -
         
         class0ver
     </title>
@@ -462,12 +456,8 @@
 
         <div class="article-title relative w-full">
             
-                
-                
-                <img src="/../images/MVC%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84/image-20231110093405800.png" alt="MVC三层架构" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
-                
-                <div class="w-full flex items-center absolute bottom-0 justify-start">
-                    <h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-bold backdrop-blur-lg rounded-xl border border-border-color ">MVC三层架构</h1>
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Spring-03-自动装配与注解</h1>
                 </div>
             
             </div>
@@ -488,38 +478,23 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-11-10 09:29:50</span>
-        <span class="mobile">2023-11-10 09:29:50</span>
+        <span class="desktop">2024-04-08 19:20:46</span>
+        <span class="mobile">2024-04-08 19:20:46</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-11-10 09:36:32</span>
-            <span class="mobile">2023-11-10 09:36:32</span>
+            <span class="desktop">2024-04-08 19:20:46</span>
+            <span class="mobile">2024-04-08 19:20:46</span>
             <span class="hover-info">Updated</span>
         </span>
     
 
     
     
-        <span class="article-tags article-meta-item">
-            <i class="fa-regular fa-tags"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="/tags/javaWeb/">javaWeb</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
-    
 
     
-    
-        <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>252 Words</span>
-        </span>
     
     
         <span class="article-min2read article-meta-item">
@@ -542,58 +517,25 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h2 id="什么是MVC？"><a href="#什么是MVC？" class="headerlink" title="什么是MVC？"></a>什么是MVC？</h2><p>model view controller</p>
-<p>模型、视图、控制器</p>
-<h2 id="早年架构"><a href="#早年架构" class="headerlink" title="早年架构"></a>早年架构</h2><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../images/MVC%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84/image-20231110093144310.png"
-                      alt="image-20231110093144310"
-                ></p>
-<p>用户直接访问控制层Controller，由控制器就可以直接操作数据库。这就导致，我们必须要在Servlet中写CRUD的代码，程序非常臃肿，不利于维护。Servlet需要处理请求、响应、试图跳转、处理JDBC、处理业务代码、处理逻辑代码。</p>
-<p>架构上改进：加一层。</p>
-<h2 id="MVC三层架构"><a href="#MVC三层架构" class="headerlink" title="MVC三层架构"></a>MVC三层架构</h2><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/../images/MVC%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84/image-20231110093405800.png"
-                      alt="image-20231110093405800"
-                ></p>
-<p>Model</p>
-<ul>
-<li>业务处理：业务逻辑（service）</li>
-<li>数据持久层：CRUD（Dao）</li>
-</ul>
-<p>View</p>
-<ul>
-<li>展示数据</li>
-<li>提供链接发起请求</li>
-</ul>
-<p>Conttroller（Servlet）</p>
-<ul>
-<li>接收用户的请求（req：请求参数、Session信息等）</li>
-<li>交给业务层处理对应的代码</li>
-<li>控制试图的跳转</li>
-</ul>
-<p><code>登录---&gt;接收用户的登录请求---&gt;处理用户的请求（获取用户登录的参数，username， password）----&gt;交给业务层处理登录业务（判断用户名密码是否正确：事务）---&gt;Dao层查询用 户名和密码是否正确--&gt;数据库</code></p>
-
+            
         </div>
 
         
             <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
                 <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> MVC三层架构</li>
+        <li><strong>Title:</strong> Spring-03-自动装配与注解</li>
         <li><strong>Author:</strong> tky</li>
         <li><strong>Created at
-                :</strong> 2023-11-10 09:29:50</li>
+                :</strong> 2024-04-08 19:20:46</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2023-11-10 09:36:32
+                    :</strong> 2024-04-08 19:20:46
             </li>
         
         <li>
-            <strong>Link:</strong> https://www.class0ver.top/2023/11/10/MVC三层架构/
+            <strong>Link:</strong> https://www.class0ver.top/2024/04/08/Spring-03-自动装配与注解/
         </li>
         <li>
             <strong>
@@ -612,14 +554,6 @@
         
 
         
-            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
-                
-                    <li class="tag-item mx-0.5">
-                        <a href="/tags/javaWeb/">#javaWeb</a>&nbsp;
-                    </li>
-                
-            </ul>
-        
 
         
 
@@ -629,13 +563,13 @@
                     <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="prev"
                         rel="prev"
-                        href="/2023/11/10/Filter-Listener/"
+                        href="/2024/04/09/leetcode-2024-4-9/"
                         >
                             <span class="left arrow-icon flex justify-center items-center">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </span>
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Filter&amp;Listener</span>
+                                <span class="post-nav-title-item">leetcode-2024-4-9</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -645,10 +579,10 @@
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="next"
                         rel="next"
-                        href="/2023/11/07/JavaBean/"
+                        href="/2024/04/08/leetcode-2024-4-8/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">JavaBean</span>
+                                <span class="post-nav-title-item">leetcode-2024-4-8</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -711,8 +645,8 @@
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">MVC三层架构</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFMVC%EF%BC%9F"><span class="nav-text">什么是MVC？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A9%E5%B9%B4%E6%9E%B6%E6%9E%84"><span class="nav-text">早年架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVC%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84"><span class="nav-text">MVC三层架构</span></a></li></ol>
+        <div class="page-title">Spring-03-自动装配与注解</div>
+        
 
     </div>
 </div>
