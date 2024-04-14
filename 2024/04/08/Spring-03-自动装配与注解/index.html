@@ -20,7 +20,7 @@
     
         <meta name="description" content="1. Bean的自动装配自动装配是指：Spring会再应用上下文中为某个bean寻找其依赖的bean。 Spring中有三种装配机制：  在xml中显式配置 在java中显式配置 触发自动装配  两个操作实现自动装配：  组件扫描：spring会自动发现应用上下文中所创建的bean 自动装配spring自动满足bean之间的依赖，也就是IoC和DI  组件扫描和自动装配组合发挥巨大威力，使的显示的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="Spring-03-自动装配与注解">
 <meta property="og:url" content="http://example.com/2024/04/08/Spring-03-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E4%B8%8E%E6%B3%A8%E8%A7%A3/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1. Bean的自动装配自动装配是指：Spring会再应用上下文中为某个bean寻找其依赖的bean。 Spring中有三种装配机制：  在xml中显式配置 在java中显式配置 触发自动装配  两个操作实现自动装配：  组件扫描：spring会自动发现应用上下文中所创建的bean 自动装配spring自动满足bean之间的依赖，也就是IoC和DI  组件扫描和自动装配组合发挥巨大威力，使的显示的">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://example.com/images/Spring-03-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E4%B8%8E%E6%B3%A8%E8%A7%A3/image-20240409191625493.png">
 <meta property="og:image" content="http://example.com/images/Spring-03-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E4%B8%8E%E6%B3%A8%E8%A7%A3/image-20240409194835553.png">
 <meta property="article:published_time" content="2024-04-08T11:20:46.000Z">
-<meta property="article:modified_time" content="2024-04-09T12:30:25.278Z">
+<meta property="article:modified_time" content="2024-04-11T11:06:01.900Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
@@ -43,6 +43,8 @@
     <!--- Page Info-->
     
     <title>
+        
+            Spring-03-自动装配与注解 -
         
         class0ver
     </title>
@@ -435,7 +437,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">59</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">62</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -462,10 +464,10 @@
             
                 
                 
-                <img src="/../images/Spring-03-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E4%B8%8E%E6%B3%A8%E8%A7%A3/image-20240409203017644.png" alt="" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
+                <img src="/../images/Spring-03-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E4%B8%8E%E6%B3%A8%E8%A7%A3/image-20240409203017644.png" alt="Spring-03-自动装配与注解" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
                 
                 <div class="w-full flex items-center absolute bottom-0 justify-start">
-                    <h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-bold backdrop-blur-lg rounded-xl border border-border-color "></h1>
+                    <h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-bold backdrop-blur-lg rounded-xl border border-border-color ">Spring-03-自动装配与注解</h1>
                 </div>
             
             </div>
@@ -493,8 +495,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-04-09 20:30:25</span>
-            <span class="mobile">2024-04-09 20:30:25</span>
+            <span class="desktop">2024-04-11 19:06:01</span>
+            <span class="mobile">2024-04-11 19:06:01</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -720,14 +722,14 @@
             <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
                 <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> </li>
+        <li><strong>Title:</strong> Spring-03-自动装配与注解</li>
         <li><strong>Author:</strong> tky</li>
         <li><strong>Created at
                 :</strong> 2024-04-08 19:20:46</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-04-09 20:30:25
+                    :</strong> 2024-04-11 19:06:01
             </li>
         
         <li>
@@ -773,7 +775,7 @@
                                 <i class="fa-solid fa-chevron-left"></i>
                             </span>
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">leetcode-2024-4-9</span>
+                                <span class="post-nav-title-item">leetcode-2024-4-9【字符串-反转-2】</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -786,7 +788,7 @@
                         href="/2024/04/08/leetcode-2024-4-8/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">leetcode-2024-4-8</span>
+                                <span class="post-nav-title-item">leetcode-2024-4-8【字符串-反转-1】</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -849,7 +851,7 @@
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title"></div>
+        <div class="page-title">Spring-03-自动装配与注解</div>
         <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Bean%E7%9A%84%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D"><span class="nav-text">1. Bean的自动装配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="nav-text">1.1 基本代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-byName%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D"><span class="nav-text">1.2 byName自动装配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-byType%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D"><span class="nav-text">1.3 byType自动装配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="nav-text">1.4 使用注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-1-Autowired"><span class="nav-text">1.4.1 @Autowired</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-2-Qualifier"><span class="nav-text">1.4.2 @Qualifier</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-3-Resource"><span class="nav-text">1.4.3 @Resource</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-%E5%B0%8F%E7%BB%93"><span class="nav-text">1.5 小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91"><span class="nav-text">2. 使用注解开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E6%B3%A8%E6%84%8F"><span class="nav-text">2.1 注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Bean%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-text">2.2 Bean的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E5%B1%9E%E6%80%A7%E6%B3%A8%E5%85%A5"><span class="nav-text">2.3 属性注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E8%A1%8D%E7%94%9F%E6%B3%A8%E8%A7%A3"><span class="nav-text">2.4 衍生注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E6%B3%A8%E8%A7%A3"><span class="nav-text">2.5 自动装配注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-text">2.6 作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-%E5%B0%8F%E7%BB%93"><span class="nav-text">2.7 小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%9F%BA%E4%BA%8EJava%E7%B1%BB%E8%BF%9B%E8%A1%8C%E9%85%8D%E7%BD%AE"><span class="nav-text">3. 基于Java类进行配置</span></a></li></ol>
 
     </div>
@@ -883,11 +885,11 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        59 posts in total
+                        62 posts in total
                     </span>
                     
                         <span>
-                            72k words in total
+                            75.8k words in total
                         </span>
                     
                 </p>
