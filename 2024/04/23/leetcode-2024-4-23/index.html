@@ -13,26 +13,29 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2024/02/27/spring-01/"/>
+    <link rel="canonical" href="http://example.com/2024/04/23/leetcode-2024-4-23/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="一、Spring概述1. 基本介绍 Spring是一个开源免费的框架 , 容器  Spring是一个轻量级的框架 , 非侵入式的  控制反转 IoC  面向切面 Aop 对事物的支持对框架的支持 一句话概括：Spring是一个轻量级的控制反转(IoC)和面向切面(AOP)的容器（框架）。  2. 组成spring4.x：  spring5.x：  组成 Spring 框架的每个模块（或组件）都可以">
+        <meta name="description" content="144. 二叉树的前序遍历给你二叉树的根节点 root ，返回它节点值的 前序 遍历。 示例 1：  12输入：root &#x3D; [1,null,2,3]输出：[1,2,3]  示例 2： 12输入：root &#x3D; []输出：[]  示例 3： 12输入：root &#x3D; [1]输出：[1]  示例 4：  12输入：root &#x3D; [1,2]输出：[1,2]  示例 5：  12输入：root &#x3D; [1,n">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring-01-概述">
-<meta property="og:url" content="http://example.com/2024/02/27/Spring-01/index.html">
+<meta property="og:title" content="leetcode-2024-4-23【二叉树-遍历-递归+迭代】">
+<meta property="og:url" content="http://example.com/2024/04/23/leetcode-2024-4-23/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="一、Spring概述1. 基本介绍 Spring是一个开源免费的框架 , 容器  Spring是一个轻量级的框架 , 非侵入式的  控制反转 IoC  面向切面 Aop 对事物的支持对框架的支持 一句话概括：Spring是一个轻量级的控制反转(IoC)和面向切面(AOP)的容器（框架）。  2. 组成spring4.x：  spring5.x：  组成 Spring 框架的每个模块（或组件）都可以">
+<meta property="og:description" content="144. 二叉树的前序遍历给你二叉树的根节点 root ，返回它节点值的 前序 遍历。 示例 1：  12输入：root &#x3D; [1,null,2,3]输出：[1,2,3]  示例 2： 12输入：root &#x3D; []输出：[]  示例 3： 12输入：root &#x3D; [1]输出：[1]  示例 4：  12输入：root &#x3D; [1,2]输出：[1,2]  示例 5：  12输入：root &#x3D; [1,n">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/images/Spring-01/image-20240227171805228.png">
-<meta property="og:image" content="http://example.com/images/Spring-01/image-20240227171827050.png">
-<meta property="article:published_time" content="2024-02-27T07:02:33.000Z">
-<meta property="article:modified_time" content="2024-02-27T09:18:28.426Z">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/09/15/inorder_1.jpg">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/09/15/inorder_5.jpg">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/09/15/inorder_4.jpg">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/08/28/pre1.jpg">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/09/15/inorder_1.jpg">
+<meta property="article:published_time" content="2024-04-23T01:51:36.000Z">
+<meta property="article:modified_time" content="2024-04-23T03:32:06.083Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="leetcode刷题">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/Spring-01/image-20240227171805228.png">
+<meta name="twitter:image" content="https://assets.leetcode.com/uploads/2020/09/15/inorder_1.jpg">
     
     
     <!--- Icon Part-->
@@ -44,7 +47,7 @@
     
     <title>
         
-            Spring-01-概述 -
+            leetcode-2024-4-23【二叉树-遍历-递归+迭代】 -
         
         class0ver
     </title>
@@ -464,10 +467,10 @@
             
                 
                 
-                <img src="/../images/Spring-01/image-20240227151106814.png" alt="Spring-01-概述" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
+                <img src="/../images/leetcode-2024-4-23/image-20240423113158099.png" alt="leetcode-2024-4-23【二叉树-遍历-递归+迭代】" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
                 
                 <div class="w-full flex items-center absolute bottom-0 justify-start">
-                    <h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-bold backdrop-blur-lg rounded-xl border border-border-color ">Spring-01-概述</h1>
+                    <h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-bold backdrop-blur-lg rounded-xl border border-border-color ">leetcode-2024-4-23【二叉树-遍历-递归+迭代】</h1>
                 </div>
             
             </div>
@@ -488,15 +491,15 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2024-02-27 15:02:33</span>
-        <span class="mobile">2024-02-27 15:02:33</span>
+        <span class="desktop">2024-04-23 09:51:36</span>
+        <span class="mobile">2024-04-23 09:51:36</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-02-27 17:18:28</span>
-            <span class="mobile">2024-02-27 17:18:28</span>
+            <span class="desktop">2024-04-23 11:32:06</span>
+            <span class="mobile">2024-04-23 11:32:06</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -508,7 +511,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/Spring/">Spring</a>&nbsp;
+                        <a href="/tags/leetcode%E5%88%B7%E9%A2%98/">leetcode刷题</a>&nbsp;
                     </li>
                 
             </ul>
@@ -518,12 +521,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>691 Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.6k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>2 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 Mins</span>
         </span>
     
     
@@ -542,38 +545,124 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h1 id="一、Spring概述"><a href="#一、Spring概述" class="headerlink" title="一、Spring概述"></a>一、Spring概述</h1><h2 id="1-基本介绍"><a href="#1-基本介绍" class="headerlink" title="1. 基本介绍"></a>1. 基本介绍</h2><ul>
-<li>Spring是一个开源免费的框架 , 容器 </li>
-<li>Spring是一个轻量级的框架 , 非侵入式的 </li>
-<li>控制反转 IoC </li>
-<li>面向切面 Aop 对事物的支持对框架的支持</li>
-<li>一句话概括：<strong>Spring是一个轻量级的控制反转(IoC)和面向切面(AOP)的容器（框架）。</strong></li>
-</ul>
-<h2 id="2-组成"><a href="#2-组成" class="headerlink" title="2. 组成"></a>2. 组成</h2><p>spring4.x：</p>
+            <h1 id="144-二叉树的前序遍历"><a href="#144-二叉树的前序遍历" class="headerlink" title="144. 二叉树的前序遍历"></a>144. 二叉树的前序遍历</h1><p>给你二叉树的根节点 <code>root</code> ，返回它节点值的 <strong>前序</strong> 遍历。</p>
+<p><strong>示例 1：</strong></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/../images/Spring-01/image-20240227171805228.png"
-                      alt="image-20240227171805228"
+                     data-src="https://assets.leetcode.com/uploads/2020/09/15/inorder_1.jpg"
+                      alt="img"
                 ></p>
-<p>spring5.x：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,null,2,3]</span><br><span class="line">输出：[1,2,3]</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>示例 2：</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = []</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>示例 3：</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1]</span><br><span class="line">输出：[1]</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>示例 4：</strong></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/../images/Spring-01/image-20240227171827050.png"
-                      alt="image-20240227171827050"
+                     data-src="https://assets.leetcode.com/uploads/2020/09/15/inorder_5.jpg"
+                      alt="img"
                 ></p>
-<p>组成 Spring 框架的每个模块（或组件）都可以单独存在，或者与其他一个或多个模块联合实现。</p>
-<p>每个模块的功能如下： </p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,2]</span><br><span class="line">输出：[1,2]</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>示例 5：</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://assets.leetcode.com/uploads/2020/09/15/inorder_4.jpg"
+                      alt="img"
+                ></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,null,2]</span><br><span class="line">输出：[1,2]</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>提示：</strong></p>
 <ul>
-<li><strong>核心容器</strong>：核心容器提供Spring框架的基本功能。核心容器的主要组件是BeanFactory ，它是工厂模式的实现。BeanFactory 使用控制反转（IOC）模式将应用程序的配置和依赖性规范与实际的应用程序代码分开。 </li>
-<li><strong>Spring 上下文</strong>：Spring上下文是一个配置文件，向 Spring框架提供上下文信息。Spring上下文包括企业服务，例如JNDI、EJB、电子邮件、国际化、校验和调度功能。</li>
-<li><strong>Spring AOP</strong>：通过配置管理特性，Spring AOP 模块直接将面向切面的编程功能 , 集成到了Spring框架中。所以，可以很容易地使 Spring 框架管理任何支持 AOP的对象。Spring AOP 模块为基于 Spring 的应用程序中的对象提供了事务管理服务。通过使用 Spring AOP，不用依赖组件，就可以将声明性事务管理集成到应用程序中。 </li>
-<li><strong>Spring DAO</strong>：JDBC DAO抽象层提供了有意义的异常层次结构，可用该结构来管理异常处理和不 同数据库供应商抛出的错误消息。异常层次结构简化了错误处理，并且极大地降低了需要编写的异常代码数量（例如打开和关闭连接）。Spring DAO 的面向 JDBC 的异常遵从通用的DAO异常层次结构。 </li>
-<li><strong>Spring ORM</strong>：Spring框架插入了若干个ORM框架，从而提供了ORM的对象关系工具，其中包括JDO、Hibernate和iBatis SQL Map。所有这些都遵从Spring的通用事务和 DAO 异常层次结构。 </li>
-<li><strong>Spring Web 模块</strong>：Web 上下文模块建立在应用程序上下文模块之上，为基于 Web 的应用程序提供了上下文。所以，Spring 框架支持与Jakarta Struts的集成。Web 模块还简化了处理多部分请求以及将请求参数绑定到域对象的工作。 </li>
-<li><strong>Spring MVC框架</strong>：MVC 框架是一个全功能的构建 Web 应用程序的 MVC 实现。通过策略接口， MVC 框架变成为高度可配置的，MVC 容纳了大量视图技术，其中包括 JSP、Velocity、Tiles、iText 和 POI。</li>
+<li>树中节点数目在范围 <code>[0, 100]</code> 内</li>
+<li><code>-100 &lt;= Node.val &lt;= 100</code></li>
 </ul>
+<p><strong>进阶：</strong>递归算法很简单，你可以通过迭代算法完成吗？</p>
+<h2 id="方案一-递归"><a href="#方案一-递归" class="headerlink" title="方案一 递归"></a>方案一 递归</h2><p>主要思想就是先处理根节点，再使用函数分别处理左分支和右分支</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Integer&gt; <span class="title function_">preorderTraversal</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; integers = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    preOrder(root, integers);</span><br><span class="line">    <span class="keyword">return</span> integers;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">preOrder</span><span class="params">(TreeNode root, List&lt;Integer&gt; res)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> ;</span><br><span class="line"></span><br><span class="line">    res.add(root.val);</span><br><span class="line">    preOrder(root.left, res);</span><br><span class="line">    preOrder(root.right, res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="方案二-迭代"><a href="#方案二-迭代" class="headerlink" title="方案二 迭代"></a>方案二 迭代</h2><p>迭代的思路应该是从上到下，但是要借助栈这个数据结构进行操作。</p>
+<p>前序遍历就是，先遍历根节点，然后按照同样的方法遍历左分支，最后遍历右分支。</p>
+<p>存在一个回溯的问题，就是，当遍历完左分支，务必已经遍历到叶子节点了，这个时候怎么一步一步回溯遍历每一个右分支。</p>
+<p>当当当当！这时候栈的作用就凸显出来啦。</p>
+<p><strong>记录根节点，先让右节点入栈，再让左节点入栈，就能保证，对于每一个根左右的序列，都一定是左分支的所有节点的遍历在右分支之前。</strong></p>
+<p><strong>还要注意一点：节点可能是NULL，所以要特别处理</strong></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Integer&gt; <span class="title function_">preorderTraversal2</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; res = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    Deque&lt;TreeNode&gt; stack = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    stack.push(root);</span><br><span class="line">    <span class="keyword">while</span> (!stack.isEmpty())&#123;</span><br><span class="line">        <span class="type">TreeNode</span> <span class="variable">tmp</span> <span class="operator">=</span> stack.pop();</span><br><span class="line">        <span class="keyword">if</span> (tmp == <span class="literal">null</span>) <span class="keyword">continue</span>;</span><br><span class="line">        res.add(tmp.val);</span><br><span class="line">        <span class="keyword">if</span> (tmp.right != <span class="literal">null</span>) stack.push(tmp.right);</span><br><span class="line">        <span class="keyword">if</span> (tmp.left != <span class="literal">null</span>) stack.push(tmp.left);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="145-二叉树的后序遍历"><a href="#145-二叉树的后序遍历" class="headerlink" title="145. 二叉树的后序遍历"></a>145. 二叉树的后序遍历</h1><p>给你一棵二叉树的根节点 <code>root</code> ，返回其节点值的 <strong>后序遍历</strong> 。</p>
+<p><strong>示例 1：</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://assets.leetcode.com/uploads/2020/08/28/pre1.jpg"
+                      alt="img"
+                ></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,null,2,3]</span><br><span class="line">输出：[3,2,1]</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>示例 2：</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = []</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>示例 3：</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1]</span><br><span class="line">输出：[1]</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li>树中节点的数目在范围 <code>[0, 100]</code> 内</li>
+<li><code>-100 &lt;= Node.val &lt;= 100</code></li>
+</ul>
+<p><strong>进阶：</strong>递归算法很简单，你可以通过迭代算法完成吗？</p>
+<h2 id="方案一-递归-1"><a href="#方案一-递归-1" class="headerlink" title="方案一 递归"></a>方案一 递归</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Integer&gt; <span class="title function_">postorderTraversal</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    postOrder(root, list);</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">postOrder</span><span class="params">(TreeNode root, List&lt;Integer&gt; res)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    postOrder(root.left, res);</span><br><span class="line">    postOrder(root.right, res);</span><br><span class="line">    res.add(root.val);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="方案二-迭代-1"><a href="#方案二-迭代-1" class="headerlink" title="方案二 迭代"></a>方案二 迭代</h2><p>前序遍历是根左右，我们将代码稍作修改改成根右左，然后再逆序输出，就是左右根的后序遍历。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Integer&gt; <span class="title function_">postorderTraversal2</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    Deque&lt;TreeNode&gt; stack = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    stack.push(root);</span><br><span class="line">    <span class="keyword">while</span> (!stack.isEmpty())&#123;</span><br><span class="line">        <span class="type">TreeNode</span> <span class="variable">tmp</span> <span class="operator">=</span> stack.pop();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (tmp == <span class="literal">null</span>) <span class="keyword">continue</span>;</span><br><span class="line">        list.add(tmp.val);</span><br><span class="line">        <span class="keyword">if</span> (tmp.left != <span class="literal">null</span>) stack.push(tmp.left);</span><br><span class="line">        <span class="keyword">if</span> (tmp.right != <span class="literal">null</span>) stack.push(tmp.right);</span><br><span class="line">    &#125;</span><br><span class="line">    List&lt;Integer&gt; res = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> list.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        res.add(list.get(i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="94-二叉树的中序遍历"><a href="#94-二叉树的中序遍历" class="headerlink" title="94. 二叉树的中序遍历"></a>94. 二叉树的中序遍历</h1><p>给定一个二叉树的根节点 <code>root</code> ，返回 <em>它的 <strong>中序</strong> 遍历</em> 。</p>
+<p><strong>示例 1：</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://assets.leetcode.com/uploads/2020/09/15/inorder_1.jpg"
+                      alt="img"
+                ></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,null,2,3]</span><br><span class="line">输出：[1,3,2]</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>示例 2：</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = []</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>示例 3：</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1]</span><br><span class="line">输出：[1]</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li>树中节点数目在范围 <code>[0, 100]</code> 内</li>
+<li><code>-100 &lt;= Node.val &lt;= 100</code></li>
+</ul>
+<p><strong>进阶:</strong> 递归算法很简单，你可以通过迭代算法完成吗？</p>
+<h2 id="方案一-递归-2"><a href="#方案一-递归-2" class="headerlink" title="方案一 递归"></a>方案一 递归</h2><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Integer&gt; <span class="title function_">inorderTraversal</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    inOrder(root, list);</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">inOrder</span><span class="params">(TreeNode root, List&lt;Integer&gt; res)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    inOrder(root.left, res);</span><br><span class="line"></span><br><span class="line">    res.add(root.val);</span><br><span class="line">    inOrder(root.right, res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="方案二-迭代-2"><a href="#方案二-迭代-2" class="headerlink" title="方案二 迭代"></a>方案二 迭代</h2><p>中序遍历是左中右，因为根节点在中间，所以没办法采用一个栈来处理。换言之，不能简单修改上述的前序遍历代码就实现中序遍历。</p>
+<p>为了解释清楚，我说明一下 刚刚在迭代的过程中，其实我们有两个操作：</p>
+<ol>
+<li><strong>处理：将元素放进result数组中</strong></li>
+<li><strong>访问：遍历节点</strong></li>
+</ol>
+<p>分析一下为什么刚刚写的前序遍历的代码，不能和中序遍历通用呢，因为前序遍历的顺序是中左右，先访问的元素是中间节点，要处理的元素也是中间节点，所以刚刚才能写出相对简洁的代码，<strong>因为要访问的元素和要处理的元素顺序是一致的，都是中间节点。</strong></p>
+<p>那么再看看中序遍历，中序遍历是左中右，先访问的是二叉树顶部的节点，然后一层一层向下访问，直到到达树左面的最底部，再开始处理节点（也就是在把节点的数值放进result数组中），这就造成了<strong>处理顺序和访问顺序是不一致的。</strong></p>
+<p>那么<strong>在使用迭代法写中序遍历，就需要借用指针的遍历来帮助访问节点，栈则用来处理节点上的元素。</strong></p>
+<p>【头好晕啊】</p>
+<p><strong>这里要注意else的处理，不能直接把右节点的值加入res，然后就不管了。我们需要处理右边的节点，同时也需要考虑回溯到根节点后访问右分支的问题，如果在这里仅仅是处理右节点的话，就会无法访问整棵树的右分支。</strong></p>
+<p>【感觉很抽象】</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Integer&gt; <span class="title function_">inorderTraversal2</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; res = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    Deque&lt;TreeNode&gt; stack = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">TreeNode</span> <span class="variable">p</span> <span class="operator">=</span> root;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (p != <span class="literal">null</span> || !stack.isEmpty())&#123;</span><br><span class="line">        <span class="keyword">if</span> (p != <span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="comment">//如果p没有到最底层，那么就让他一直往左下角遍历，并且一路把相关节点入栈</span></span><br><span class="line">            stack.push(p);</span><br><span class="line">            p = p.left;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//如果p已经到最底层，说明这一路的左节点都已经处理过了，需要一边处理根节点和右节点一边回溯</span></span><br><span class="line">            <span class="comment">//通过栈来回溯和处理</span></span><br><span class="line">            p = stack.pop();</span><br><span class="line">            <span class="keyword">if</span>(p == <span class="literal">null</span>) <span class="keyword">continue</span>;</span><br><span class="line">            res.add(p.val);</span><br><span class="line">            p = p.right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
 
         </div>
 
@@ -581,18 +670,18 @@
             <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
                 <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> Spring-01-概述</li>
+        <li><strong>Title:</strong> leetcode-2024-4-23【二叉树-遍历-递归+迭代】</li>
         <li><strong>Author:</strong> tky</li>
         <li><strong>Created at
-                :</strong> 2024-02-27 15:02:33</li>
+                :</strong> 2024-04-23 09:51:36</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-02-27 17:18:28
+                    :</strong> 2024-04-23 11:32:06
             </li>
         
         <li>
-            <strong>Link:</strong> https://www.class0ver.top/2024/02/27/Spring-01/
+            <strong>Link:</strong> https://www.class0ver.top/2024/04/23/leetcode-2024-4-23/
         </li>
         <li>
             <strong>
@@ -614,7 +703,7 @@
             <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
                 
                     <li class="tag-item mx-0.5">
-                        <a href="/tags/Spring/">#Spring</a>&nbsp;
+                        <a href="/tags/leetcode%E5%88%B7%E9%A2%98/">#leetcode刷题</a>&nbsp;
                     </li>
                 
             </ul>
@@ -625,29 +714,14 @@
         
             <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
                 
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2024/02/27/Spring-02-IOC/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Spring-02-IoC和DI</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="next"
                         rel="next"
-                        href="/2024/02/27/leetcode-2024-2-27/"
+                        href="/2024/04/21/leetcode-%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97%E6%80%BB%E7%BB%93/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">leetcode-2024-2-27【数组-长度最小的子数组-1】</span>
+                                <span class="post-nav-title-item">leetcode-代码随想录栈与队列总结</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -710,8 +784,8 @@
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">Spring-01-概述</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81Spring%E6%A6%82%E8%BF%B0"><span class="nav-text">一、Spring概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="nav-text">1. 基本介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%BB%84%E6%88%90"><span class="nav-text">2. 组成</span></a></li></ol></li></ol>
+        <div class="page-title">leetcode-2024-4-23【二叉树-遍历-递归+迭代】</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#144-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-text">144. 二叉树的前序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80-%E9%80%92%E5%BD%92"><span class="nav-text">方案一 递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C-%E8%BF%AD%E4%BB%A3"><span class="nav-text">方案二 迭代</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-text">145. 二叉树的后序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80-%E9%80%92%E5%BD%92-1"><span class="nav-text">方案一 递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C-%E8%BF%AD%E4%BB%A3-1"><span class="nav-text">方案二 迭代</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-text">94. 二叉树的中序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80-%E9%80%92%E5%BD%92-2"><span class="nav-text">方案一 递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C-%E8%BF%AD%E4%BB%A3-2"><span class="nav-text">方案二 迭代</span></a></li></ol></li></ol>
 
     </div>
 </div>
